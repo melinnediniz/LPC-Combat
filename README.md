@@ -82,7 +82,7 @@ Here are our project contributors:
 <table>
     <tr>
         <td style="text-align: center;"><a href="https://github.com/pepes7"><img style="border-radius: 50%;" src="https://github.com/pepes7.png" width="100px;" alt=""/><br /><sub><b>Gabriel Pepes</b></sub></a><br /><a>👨‍🎓📚</a></td>
-        <td style="text-align: center;"><a href="https://github.com/melinnediniz"><img style="border-radius: 50%;" src="https://github.com/lidia1805.png" width="100px;" alt=""/><br /><sub><b>Lidia Dias</b></sub></a><br /><a>👨‍🎓📚</a></td>
+        <td style="text-align: center;"><a href="https://github.com/lidia1805"><img style="border-radius: 50%;" src="https://github.com/lidia1805.png" width="100px;" alt=""/><br /><sub><b>Lidia Dias</b></sub></a><br /><a>👨‍🎓📚</a></td>
         <td style="text-align: center;"><a href="https://github.com/melinnediniz"><img style="border-radius: 50%;" src="https://github.com/melinnediniz.png" width="100px;" alt=""/><br /><sub><b>Melinne Diniz</b></sub></a><br /><a>👨‍🎓📚</a></td>
         <td style="text-align: center;"><a href="https://github.com/ronaldocoding"><img style="border-radius: 50%;" src="https://github.com/ronaldocoding.png" width="100px;" alt=""/><br /><sub><b>Ronaldo Costa</b></sub></a><br /><a>👨‍🎓📚</a></td>
     </tr>
