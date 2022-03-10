@@ -1,5 +1,6 @@
 import pygame
-from config import Colors, Constants, display_score, update_score
+from config import Colors, Constants, display_score, update_score, winner
+from config import timer, time_count
 
 pygame.init()
 screen = pygame.display.set_mode(Constants.SCREEN_DIMENSIONS)
@@ -26,8 +27,15 @@ class Game:
 
 
     def main(self):
-
+        global time_count
         for event in pygame.event.get():
+            if event.type == timer:
+                time_count += 1
+                print(f"COUNT: {time_count}")
+                if time_count == 10:
+                    print(winner())
+                    time_count = 0
+                    self.current_screen = "start"
             if event.type == pygame.QUIT:
                 exit()
 
@@ -36,6 +44,10 @@ class Game:
                     self.current_screen = "start"
                 elif event.key == pygame.K_ESCAPE:
                     exit()
+                elif event.key == pygame.K_1:
+                    update_score(1)
+                elif event.key == pygame.K_2:
+                    update_score(2)
 
 
         screen.fill(Colors.RED)

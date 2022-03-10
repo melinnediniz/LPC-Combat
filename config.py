@@ -8,9 +8,9 @@ class Constants:
     FONT = "fonts/PoppkornRegular.ttf"
     SCREEN_DIMENSIONS = (1100, 720)
     CLOCK = 60
-    MAX_SCORE = 5
     SCORE_1_POS = (280, 5)
     SCORE_2_POS = (800, 5)
+
 
 class Colors:
     BLACK = (0, 0, 0)
@@ -51,9 +51,29 @@ def display_score(surf, position, score):
     score_rect = score_surf.get_rect(topleft=position)
     surf.blit(score_surf, score_rect)
 
+
 def update_score(score):
     global score_1, score_2
-    if score == 1 and  score_1 < Constants.MAX_SCORE:
+    if score == 1:
             score_1 +=1
-    elif score == 2 and score_2 < Constants.MAX_SCORE:
+    elif score == 2:
             score_2 += 1
+
+
+def winner():
+    winner = ''
+    global score_1, score_2
+    if score_2 > score_1:
+        winner = 'PLAYER 2 WON'
+    elif score_2 == score_1:
+        winner = 'EMPATE'
+    else:
+        winner = 'PLAYER 1 WON'
+    
+    return winner
+
+
+# time event
+time_count = 0
+timer = pygame.USEREVENT
+pygame.time.set_timer(timer, 1000)
