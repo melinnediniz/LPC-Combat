@@ -57,3 +57,16 @@ def update_score(score):
             score_1 +=1
     elif score == 2 and score_2 < Constants.MAX_SCORE:
             score_2 += 1
+
+
+def winner():
+    winner = ''
+    global score_1, score_2
+    if score_2 > score_1:
+        winner = 'PLAYER 2 WON'
+    elif score_2 == score_1:
+        winner = 'EMPATE'
+    else:
+        winner = 'PLAYER 1 WON'
+    
+    return winner
