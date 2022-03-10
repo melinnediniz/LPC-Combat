@@ -1,5 +1,4 @@
-from config import BLUE_TANK_SPRITE_UP, BLUE_TANK_X_POS, BLUE_TANK_Y_POS, GREEN_TANK_SPRITE_UP, GREEN_TANK_X_POS,\
-    GREEN_TANK_Y_POS
+from config import *
 import pygame
 
 
@@ -12,19 +11,28 @@ class BlueTank(pygame.sprite.Sprite):
         self.y_speed = 0
 
     def move_up(self):
-        pass
+        self.image = pygame.image.load(BLUE_TANK_SPRITE_UP)
 
     def move_down(self):
-        pass
+        self.image = pygame.image.load(BLUE_TANK_SPRITE_DOWN)
 
     def move_right(self):
-        pass
+        self.image = pygame.image.load(BLUE_TANK_SPRITE_RIGHT)
 
     def move_left(self):
-        pass
+        self.image = pygame.image.load(BLUE_TANK_SPRITE_LEFT)
 
-    def update(self):
-        pass
+    def move_diagonal_top_right(self):
+        self.image = pygame.image.load(BLUE_TANK_SPRITE_DIAGONAL_TOP_RIGHT)
+
+    def move_diagonal_top_left(self):
+        self.image = pygame.image.load(BLUE_TANK_SPRITE_DIAGONAL_TOP_LEFT)
+
+    def move_diagonal_bottom_right(self):
+        self.image = pygame.image.load(BLUE_TANK_SPRITE_DIAGONAL_BOTTOM_RIGHT)
+
+    def move_diagonal_bottom_left(self):
+        self.image = pygame.image.load(BLUE_TANK_SPRITE_DIAGONAL_BOTTOM_LEFT)
 
 
 class GreenTank(pygame.sprite.Sprite):
@@ -36,16 +44,25 @@ class GreenTank(pygame.sprite.Sprite):
         self.y_speed = 0
 
     def move_up(self):
-        pass
+        self.image = pygame.image.load(GREEN_TANK_SPRITE_UP)
 
     def move_down(self):
-        pass
+        self.image = pygame.image.load(GREEN_TANK_SPRITE_DOWN)
 
     def move_right(self):
-        pass
+        self.image = pygame.image.load(GREEN_TANK_SPRITE_RIGHT)
 
     def move_left(self):
-        pass
+        self.image = pygame.image.load(GREEN_TANK_SPRITE_LEFT)
 
-    def update(self):
-        pass
+    def move_diagonal_top_right(self):
+        self.image = pygame.image.load(GREEN_TANK_SPRITE_DIAGONAL_TOP_RIGHT)
+
+    def move_diagonal_top_left(self):
+        self.image = pygame.image.load(GREEN_TANK_SPRITE_DIAGONAL_TOP_LEFT)
+
+    def move_diagonal_bottom_right(self):
+        self.image = pygame.image.load(GREEN_TANK_SPRITE_DIAGONAL_BOTTOM_RIGHT)
+
+    def move_diagonal_bottom_left(self):
+        self.image = pygame.image.load(GREEN_TANK_SPRITE_DIAGONAL_BOTTOM_LEFT)

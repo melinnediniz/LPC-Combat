@@ -32,7 +32,6 @@ class Game:
         pygame.display.flip()
 
     def main(self):
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -43,11 +42,46 @@ class Game:
                 elif event.key == pygame.K_ESCAPE:
                     exit()
 
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_d]:
+            green_tank.move_up()
+        if keys[pygame.K_a]:
+            green_tank.move_down()
+        if keys[pygame.K_w]:
+            green_tank.move_left()
+        if keys[pygame.K_s]:
+            green_tank.move_right()
+        if keys[pygame.K_LEFT]:
+            blue_tank.move_up()
+        if keys[pygame.K_RIGHT]:
+            blue_tank.move_down()
+        if keys[pygame.K_UP]:
+            blue_tank.move_right()
+        if keys[pygame.K_DOWN]:
+            blue_tank.move_left()
+        if keys[pygame.K_d] and keys[pygame.K_w]:
+            green_tank.move_diagonal_top_right()
+        if keys[pygame.K_d] and keys[pygame.K_s]:
+            green_tank.move_diagonal_top_left()
+        if keys[pygame.K_a] and keys[pygame.K_w]:
+            green_tank.move_diagonal_bottom_right()
+        if keys[pygame.K_a] and keys[pygame.K_s]:
+            green_tank.move_diagonal_bottom_left()
+        if keys[pygame.K_LEFT] and keys[pygame.K_UP]:
+            blue_tank.move_diagonal_top_right()
+        if keys[pygame.K_LEFT] and keys[pygame.K_DOWN]:
+            blue_tank.move_diagonal_top_left()
+        if keys[pygame.K_RIGHT] and keys[pygame.K_UP]:
+            blue_tank.move_diagonal_bottom_right()
+        if keys[pygame.K_RIGHT] and keys[pygame.K_DOWN]:
+            blue_tank.move_diagonal_bottom_left()
+
         screen.fill(Colors.RED)
         display_score(screen, Constants.SCORE_1_POS, 1)
         display_score(screen, Constants.SCORE_2_POS, 2)
+        all_sprites.update()
         all_sprites.draw(screen)
-        pygame.display.flip()
+        pygame.display.update()
 
     def change_screen(self):
         if self.current_screen == "start":
