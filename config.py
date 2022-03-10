@@ -8,7 +8,6 @@ class Constants:
     FONT = "fonts/PoppkornRegular.ttf"
     SCREEN_DIMENSIONS = (1100, 720)
     CLOCK = 60
-    MAX_SCORE = 5
     SCORE_1_POS = (280, 5)
     SCORE_2_POS = (800, 5)
 
@@ -53,9 +52,9 @@ def display_score(surf, position, score):
 
 def update_score(score):
     global score_1, score_2
-    if score == 1 and  score_1 < Constants.MAX_SCORE:
+    if score == 1:
             score_1 +=1
-    elif score == 2 and score_2 < Constants.MAX_SCORE:
+    elif score == 2:
             score_2 += 1
 
 
