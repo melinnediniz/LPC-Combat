@@ -5,12 +5,11 @@ class Sounds:
 
 
 class Constants:
-    FONT = "fonts/PoppknornRegular.ttf"
-    SCREEN_DIMENSIONS = (1000, 600)
+    FONT = "fonts/PoppkornRegular.ttf"
+    SCREEN_DIMENSIONS = (1100, 720)
     CLOCK = 60
-    MAX_SCORE = 5
-    SCORE_1_POS = ()
-    SCORE_2_POS = ()
+    SCORE_1_POS = (280, 5)
+    SCORE_2_POS = (800, 5)
 
 class Colors:
     BLACK = (0, 0, 0)
@@ -30,7 +29,8 @@ score_2 = 0
 
 
 # ------- GLOBAL FUNCTIONS
-font = pygame.font.Font(None, 30)
+pygame.init()
+font = pygame.font.Font(Constants.FONT, 60)
 
 def play_sound(file, vol):
     sound = pygame.mixer.Sound(file)
@@ -50,3 +50,22 @@ def display_score(surf, position, score):
     score_rect = score_surf.get_rect(topleft=position)
     surf.blit(score_surf, score_rect)
 
+def update_score(score):
+    global score_1, score_2
+    if score == 1:
+            score_1 +=1
+    elif score == 2:
+            score_2 += 1
+
+
+def winner():
+    winner = ''
+    global score_1, score_2
+    if score_2 > score_1:
+        winner = 'PLAYER 2 WON'
+    elif score_2 == score_1:
+        winner = 'EMPATE'
+    else:
+        winner = 'PLAYER 1 WON'
+    
+    return winner
