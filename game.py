@@ -1,9 +1,16 @@
 import pygame
 from config import Colors, Constants, display_score, update_score
+from tanks import *
 
 pygame.init()
 screen = pygame.display.set_mode(Constants.SCREEN_DIMENSIONS)
 pygame.display.set_caption("TANK PONG")
+
+all_sprites = pygame.sprite.Group()
+blue_tank = BlueTank()
+green_tank = GreenTank()
+all_sprites.add(blue_tank)
+all_sprites.add(green_tank)
 
 
 class Game:
@@ -24,7 +31,6 @@ class Game:
         screen.fill(Colors.GREEN)
         pygame.display.flip()
 
-
     def main(self):
 
         for event in pygame.event.get():
@@ -37,12 +43,11 @@ class Game:
                 elif event.key == pygame.K_ESCAPE:
                     exit()
 
-
         screen.fill(Colors.RED)
         display_score(screen, Constants.SCORE_1_POS, 1)
         display_score(screen, Constants.SCORE_2_POS, 2)
+        all_sprites.draw(screen)
         pygame.display.flip()
-
 
     def change_screen(self):
         if self.current_screen == "start":
