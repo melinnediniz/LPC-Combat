@@ -1,12 +1,12 @@
 import pygame
-from config import Colors, Constants, display_score, update_score
+from config import Color, Constant, display_score
 from tanks import *
 from scenario import *
 from shots import *
 
 
 pygame.init()
-screen = pygame.display.set_mode(Constants.SCREEN_DIMENSIONS)
+screen = pygame.display.set_mode(Constant.SCREEN_DIMENSIONS)
 pygame.display.set_caption("TANK PONG")
 
 all_sprites = pygame.sprite.Group()
@@ -70,18 +70,18 @@ class Game:
                 elif event.key == pygame.K_ESCAPE:
                     exit()
 
-        screen.fill(Colors.GREEN)
+        screen.fill(Color.GREEN)
         pygame.display.flip()
 
     def main(self):
         global green_already_shoted, blue_already_shoted, green_shot_limiter, blue_shot_limiter
-
+        global GREEN_TANK_Y_POS, GREEN_TANK_X_POS, BLUE_TANK_X_POS, BLUE_TANK_Y_POS
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_r:
                     self.current_screen = "start"
                 elif event.key == pygame.K_ESCAPE:
                     exit()
@@ -132,15 +132,15 @@ class Game:
             blue_shot_limiter = 0
             blue_already_shoted = True
 
-        screen.fill(Colors.RED)
-        display_score(screen, Constants.SCORE_1_POS, 1)
-        display_score(screen, Constants.SCORE_2_POS, 2)
+        screen.fill(Color.RED)
+        display_score(screen, Constant.SCORE_1_POS, 1)
+        display_score(screen, Constant.SCORE_2_POS, 2)
         all_sprites.update()
         all_sprites.draw(screen)
-        pygame.draw.rect(screen, Colors().YELLOW, top_rect)
-        pygame.draw.rect(screen, Colors().YELLOW, bottom_rect)
-        pygame.draw.rect(screen, Colors().YELLOW, right_rect)
-        pygame.draw.rect(screen, Colors().YELLOW, left_rect)
+        pygame.draw.rect(screen, Color().YELLOW, top_rect)
+        pygame.draw.rect(screen, Color().YELLOW, bottom_rect)
+        pygame.draw.rect(screen, Color().YELLOW, right_rect)
+        pygame.draw.rect(screen, Color().YELLOW, left_rect)
         pygame.display.update()
         if green_shot_limiter == TICK_SHOT_LIMITER:
             green_already_shoted = False
