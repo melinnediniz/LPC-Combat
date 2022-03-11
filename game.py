@@ -1,9 +1,6 @@
-import pygame
-from config import Color, Constant, display_score
 from tanks import *
 from scenario import *
 from shots import *
-
 
 pygame.init()
 screen = pygame.display.set_mode(Constant.SCREEN_DIMENSIONS)
@@ -50,10 +47,11 @@ all_sprites.add(left_down_rectangle)
 all_sprites.add(right_goal)
 all_sprites.add(left_goal)
 
-green_already_shoted = False
-blue_already_shoted = False
+green_already_thrown = False
+blue_already_thrown = False
 green_shot_limiter = TICK_SHOT_LIMITER
 blue_shot_limiter = TICK_SHOT_LIMITER
+
 
 class Game:
     def __init__(self):
@@ -74,8 +72,7 @@ class Game:
         pygame.display.flip()
 
     def main(self):
-        global green_already_shoted, blue_already_shoted, green_shot_limiter, blue_shot_limiter
-        global GREEN_TANK_Y_POS, GREEN_TANK_X_POS, BLUE_TANK_X_POS, BLUE_TANK_Y_POS
+        global green_already_thrown, blue_already_thrown, green_shot_limiter, blue_shot_limiter
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -119,18 +116,18 @@ class Game:
             blue_tank.move_right()
         if keys[pygame.K_DOWN]:
             blue_tank.move_left()
-        if keys[pygame.K_g] and not green_already_shoted:
+        if keys[pygame.K_g] and not green_already_thrown:
             new_green_shot = GreenShot(green_tank.rect.x + 22, green_tank.rect.y + 22,
-                                       green_tank.previos_x_speed, green_tank.previos_y_speed)
+                                       green_tank.previous_x_speed, green_tank.previous_y_speed)
             all_sprites.add(new_green_shot)
             green_shot_limiter = 0
-            green_already_shoted = True
-        if keys[pygame.K_l] and not blue_already_shoted:
+            green_already_thrown = True
+        if keys[pygame.K_l] and not blue_already_thrown:
             new_blue_shot = BlueShot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
-                                      blue_tank.previos_x_speed, blue_tank.previos_y_speed)
+                                     blue_tank.previous_x_speed, blue_tank.previous_y_speed)
             all_sprites.add(new_blue_shot)
             blue_shot_limiter = 0
-            blue_already_shoted = True
+            blue_already_thrown = True
 
         screen.fill(Color.RED)
         display_score(screen, Constant.SCORE_1_POS, 1)
@@ -143,9 +140,9 @@ class Game:
         pygame.draw.rect(screen, Color().YELLOW, left_rect)
         pygame.display.update()
         if green_shot_limiter == TICK_SHOT_LIMITER:
-            green_already_shoted = False
+            green_already_thrown = False
         if blue_shot_limiter == TICK_SHOT_LIMITER:
-            blue_already_shoted = False
+            blue_already_thrown = False
         green_shot_limiter += 1
         blue_shot_limiter += 1
 

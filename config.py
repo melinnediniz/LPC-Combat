@@ -95,10 +95,12 @@ LEFT_GOAL_SPRITE = 'sprites/left_goal.png'
 LEFT_GOAL_X_POS = 164
 LEFT_GOAL_Y_POS = 396
 
+
 class Sounds:
     throw_ball = ""
     move_tank = "sound/move_tank.wav"
     flip_tank = "sound/flip_tank.wav"
+
 
 class Constant:
     FONT = "fonts/PoppkornRegular.ttf"
@@ -107,15 +109,16 @@ class Constant:
     SCORE_1_POS = (280, 5)
     SCORE_2_POS = (800, 5)
 
+
 class Color:
     BLACK = (0, 0, 0)
-    RED = (154, 47, 14) # base
-    YELLOW = (220, 176, 73) # obstacles
-    GREEN = (149, 203, 89) # left player
-    BLUE = (90, 100, 224) # right player
-    AQUA = (45, 140, 110) # base start screen
-    PINK = (229, 123, 219) #left player start screen
-    WHITE = (234, 234, 234) # right player start screen
+    RED = (154, 47, 14)  # base
+    YELLOW = (220, 176, 73)  # obstacles
+    GREEN = (149, 203, 89)  # left player
+    BLUE = (90, 100, 224)  # right player
+    AQUA = (45, 140, 110)  # base start screen
+    PINK = (229, 123, 219)  # left player start screen
+    WHITE = (234, 234, 234)  # right player start screen
 
 
 # ------ GLOBAL VARIABLES
@@ -127,6 +130,7 @@ score_2 = 0
 # ------- GLOBAL FUNCTIONS
 pygame.init()
 font = pygame.font.Font(Constant.FONT, 60)
+
 
 def play_sound(file, vol):
     sound = pygame.mixer.Sound(file)
@@ -146,21 +150,21 @@ def display_score(surf, position, score):
     score_rect = score_surf.get_rect(topleft=position)
     surf.blit(score_surf, score_rect)
 
+
 def update_score(score):
     global score_1, score_2
     if score == 1:
-            score_1 +=1
+        score_1 += 1
     elif score == 2:
-            score_2 += 1
+        score_2 += 1
 
 
 def winner():
-    winner = ''
     global score_1, score_2
     if score_2 > score_1:
         winner = 'PLAYER 2 WON'
     elif score_2 == score_1:
-        winner = 'EMPATE'
+        winner = 'DRAW'
     else:
         winner = 'PLAYER 1 WON'
     
