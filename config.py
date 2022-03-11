@@ -1,15 +1,17 @@
 import pygame
 
+
 class Sounds:
     throw_ball = ""
 
 
 class Constants:
     FONT = "fonts/PoppkornRegular.ttf"
-    SCREEN_DIMENSIONS = (1100, 720)
+    SCREEN_DIMENSIONS = (800, 600)
     CLOCK = 60
-    SCORE_1_POS = (280, 5)
-    SCORE_2_POS = (800, 5)
+    SCORE_1_POS = (220, 5)
+    SCORE_2_POS = (580, 5)
+    GAME_TIME = 10
 
 
 class Colors:
@@ -23,6 +25,8 @@ class Colors:
     WHITE = (234, 234, 234) # right player start screen
 
 
+list_colors = [Colors.AQUA, Colors.PINK, Colors.YELLOW, Colors.WHITE, Colors.BLACK]
+
 # ------ GLOBAL VARIABLES
 game_loop = True
 score_1 = 0
@@ -32,6 +36,12 @@ score_2 = 0
 # ------- GLOBAL FUNCTIONS
 pygame.init()
 font = pygame.font.Font(Constants.FONT, 60)
+
+# time event
+time_count = 0
+timer = pygame.USEREVENT
+pygame.time.set_timer(timer, 1000)
+
 
 def play_sound(file, vol):
     sound = pygame.mixer.Sound(file)
@@ -60,20 +70,7 @@ def update_score(score):
             score_2 += 1
 
 
-def winner():
-    winner = ''
-    global score_1, score_2
-    if score_2 > score_1:
-        winner = 'PLAYER 2 WON'
-    elif score_2 == score_1:
-        winner = 'EMPATE'
-    else:
-        winner = 'PLAYER 1 WON'
-    
-    return winner
 
-
-# time event
-time_count = 0
-timer = pygame.USEREVENT
-pygame.time.set_timer(timer, 1000)
+def reset():
+    global time_count, score_1, score_2
+    score_1, score_2 = 0, 0
