@@ -12,27 +12,52 @@ class BlueTank(pygame.sprite.Sprite):
 
     def move_up(self):
         self.image = pygame.image.load(BLUE_TANK_SPRITE_UP)
+        self.x_speed -= 2
+        self.y_speed = 0
 
     def move_down(self):
         self.image = pygame.image.load(BLUE_TANK_SPRITE_DOWN)
+        self.x_speed += 2
+        self.y_speed = 0
 
     def move_right(self):
         self.image = pygame.image.load(BLUE_TANK_SPRITE_RIGHT)
+        self.x_speed = 0
+        self.y_speed -= 2
 
     def move_left(self):
         self.image = pygame.image.load(BLUE_TANK_SPRITE_LEFT)
+        self.x_speed = 0
+        self.y_speed += 2
 
     def move_diagonal_top_right(self):
         self.image = pygame.image.load(BLUE_TANK_SPRITE_DIAGONAL_TOP_RIGHT)
+        self.x_speed += 2
+        self.y_speed = 0
 
     def move_diagonal_top_left(self):
         self.image = pygame.image.load(BLUE_TANK_SPRITE_DIAGONAL_TOP_LEFT)
+        self.x_speed += 2
+        self.y_speed = 0
 
     def move_diagonal_bottom_right(self):
         self.image = pygame.image.load(BLUE_TANK_SPRITE_DIAGONAL_BOTTOM_RIGHT)
+        self.x_speed += 2
+        self.y_speed = 0
 
     def move_diagonal_bottom_left(self):
         self.image = pygame.image.load(BLUE_TANK_SPRITE_DIAGONAL_BOTTOM_LEFT)
+        self.x_speed += 2
+        self.y_speed = 0
+
+    def turn_off_speed(self):
+        self.x_speed = 0
+        self.y_speed = 0
+
+    def update(self):
+        self.rect.x += self.x_speed
+        self.rect.y += self.y_speed
+        self.turn_off_speed()
 
 
 class GreenTank(pygame.sprite.Sprite):
@@ -45,24 +70,49 @@ class GreenTank(pygame.sprite.Sprite):
 
     def move_up(self):
         self.image = pygame.image.load(GREEN_TANK_SPRITE_UP)
+        self.x_speed += 2
+        self.y_speed = 0
 
     def move_down(self):
         self.image = pygame.image.load(GREEN_TANK_SPRITE_DOWN)
+        self.x_speed -= 2
+        self.y_speed = 0
 
     def move_right(self):
         self.image = pygame.image.load(GREEN_TANK_SPRITE_RIGHT)
+        self.x_speed = 0
+        self.y_speed += 2
 
     def move_left(self):
         self.image = pygame.image.load(GREEN_TANK_SPRITE_LEFT)
+        self.x_speed = 0
+        self.y_speed -= 2
 
     def move_diagonal_top_right(self):
         self.image = pygame.image.load(GREEN_TANK_SPRITE_DIAGONAL_TOP_RIGHT)
+        self.x_speed += 2
+        self.y_speed += 2
 
     def move_diagonal_top_left(self):
         self.image = pygame.image.load(GREEN_TANK_SPRITE_DIAGONAL_TOP_LEFT)
+        self.x_speed += 2
+        self.y_speed -= 2
 
     def move_diagonal_bottom_right(self):
         self.image = pygame.image.load(GREEN_TANK_SPRITE_DIAGONAL_BOTTOM_RIGHT)
+        self.x_speed -= 2
+        self.y_speed += 2
 
     def move_diagonal_bottom_left(self):
         self.image = pygame.image.load(GREEN_TANK_SPRITE_DIAGONAL_BOTTOM_LEFT)
+        self.x_speed -= 2
+        self.y_speed -= 2
+
+    def turn_off_speed(self):
+        self.x_speed = 0
+        self.y_speed = 0
+
+    def update(self):
+        self.rect.x += self.x_speed
+        self.rect.y += self.y_speed
+        self.turn_off_speed()
