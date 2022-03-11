@@ -4,6 +4,7 @@ from tanks import *
 from scenario import *
 from shots import *
 
+
 pygame.init()
 screen = pygame.display.set_mode(Constants.SCREEN_DIMENSIONS)
 pygame.display.set_caption("TANK PONG")

@@ -97,16 +97,17 @@ LEFT_GOAL_Y_POS = 396
 
 class Sounds:
     throw_ball = ""
+    move_tank = "sound/move_tank.wav"
+    flip_tank = "sound/flip_tank.wav"
 
-
-class Constants:
+class Constant:
     FONT = "fonts/PoppkornRegular.ttf"
     SCREEN_DIMENSIONS = (1022, 738)
     CLOCK = 60
     SCORE_1_POS = (280, 5)
     SCORE_2_POS = (800, 5)
 
-class Colors:
+class Color:
     BLACK = (0, 0, 0)
     RED = (154, 47, 14) # base
     YELLOW = (220, 176, 73) # obstacles
@@ -125,7 +126,7 @@ score_2 = 0
 
 # ------- GLOBAL FUNCTIONS
 pygame.init()
-font = pygame.font.Font(Constants.FONT, 60)
+font = pygame.font.Font(Constant.FONT, 60)
 
 def play_sound(file, vol):
     sound = pygame.mixer.Sound(file)
@@ -135,12 +136,12 @@ def play_sound(file, vol):
 
 def display_score(surf, position, score):
     global score_1, score_2
-    color = Colors.GREEN
+    color = Color.GREEN
     if score == 1:
         score = score_1
     elif score == 2:
         score = score_2
-        color = Colors.BLUE
+        color = Color.BLUE
     score_surf = font.render(f'{score}', True, color)
     score_rect = score_surf.get_rect(topleft=position)
     surf.blit(score_surf, score_rect)
