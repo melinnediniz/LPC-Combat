@@ -1,5 +1,5 @@
 import pygame
-from config import Colors, Constants, display_score, update_score
+from config import Colors, Constants, display_score
 
 pygame.init()
 screen = pygame.display.set_mode(Constants.SCREEN_DIMENSIONS)
