@@ -156,26 +156,14 @@ def move_tanks_sound():
     blue_tank_channel.set_volume(0.5)
     key = pygame.key.get_pressed()
     if not green_tank_channel.get_busy():
-        if key[pygame.K_d]:
-            green_tank_channel.play(Sounds.move_tank)
-        if key[pygame.K_s]:
-            green_tank_channel.play(Sounds.move_tank)
-        if key[pygame.K_a]:
-            green_tank_channel.play(Sounds.move_tank)
-        if key[pygame.K_w]:
+        if key[pygame.K_d] or key[pygame.K_s] or key[pygame.K_a] or key[pygame.K_w]:
             green_tank_channel.play(Sounds.move_tank)
     elif green_tank_channel.get_busy():
         if not key[pygame.K_d] and (not key[pygame.K_s]) and (not key[pygame.K_a]) and (not key[pygame.K_w]):
             green_tank_channel.stop()
 
     if not blue_tank_channel.get_busy():
-        if key[pygame.K_LEFT]:
-            blue_tank_channel.play(Sounds.move_tank)
-        if key[pygame.K_RIGHT]:
-            blue_tank_channel.play(Sounds.move_tank)
-        if key[pygame.K_UP]:
-            blue_tank_channel.play(Sounds.move_tank)
-        if key[pygame.K_DOWN]:
+        if key[pygame.K_LEFT] or key[pygame.K_RIGHT] or key[pygame.K_DOWN] or key[pygame.K_UP]:
             blue_tank_channel.play(Sounds.move_tank)
     elif blue_tank_channel.get_busy():
         if not key[pygame.K_LEFT] and (not key[pygame.K_RIGHT]) and (not key[pygame.K_UP]) and (not key[pygame.K_DOWN]):
