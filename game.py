@@ -46,9 +46,10 @@ left_rect = pygame.Rect(LEFT_RECT_X_POS, RIGHT_AND_LEFT_RECT_Y_POS, RIGHT_AND_LE
 
 new_blue_shot = BlueShot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
                          blue_tank.previous_x_speed, blue_tank.previous_y_speed)
+new_green_shot = GreenShot(green_tank.rect.x + 22, green_tank.rect.y + 22,
+                           green_tank.previous_x_speed, green_tank.previous_y_speed)
 all_sprites.add(blue_tank)
 all_sprites.add(green_tank)
-#all_sprites.add(new_blue_shot)
 all_sprites.add(center_right_block)
 all_sprites.add(center_left_block)
 all_sprites.add(center_top_block)
@@ -125,6 +126,33 @@ class Game:
                     print(blue_tank.movement)
                     self.current_screen = "start"
 
+        def update_position_shot_blue(shot):
+            global blue_shot_limiter, blue_already_thrown
+            new_blue_shot.action_shoot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
+                                       blue_tank.previous_x_speed, blue_tank.previous_y_speed, shot)
+
+            blue_shot_limiter = 0
+            blue_already_thrown = True
+
+        def update_position_shot_green(shot):
+            global blue_shot_limiter, blue_already_thrown
+            new_green_shot.action_shoot(green_tank.rect.x + 22, green_tank.rect.y + 22,
+                                       green_tank.previous_x_speed, green_tank.previous_y_speed, shot)
+
+            blue_shot_limiter = 0
+            blue_already_thrown = True
+
+        def collision_shots():
+            if new_blue_shot.rect.colliderect(green_tank.rect):
+                kill_sound()
+                new_blue_shot.kill()
+                update_position_shot_blue(False)
+
+            if new_green_shot.rect.colliderect(blue_tank.rect):
+                kill_sound()
+                new_green_shot.kill()
+                update_position_shot_green(False)
+
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d] and keys[pygame.K_w]:
             green_tank.move_diagonal_top_right()
@@ -167,27 +195,18 @@ class Game:
             if not blue_tank.rect.colliderect(bottom_rect):
                 blue_tank.move_left()
         if keys[pygame.K_g] and not green_already_thrown:
-            new_green_shot = GreenShot(green_tank.rect.x + 22, green_tank.rect.y + 22,
-                                       green_tank.previous_x_speed, green_tank.previous_y_speed)
+            update_position_shot_green(True)
             all_sprites.add(new_green_shot)
-            green_shot_limiter = 0
-            green_already_thrown = True
         if keys[pygame.K_l] and not blue_already_thrown:
-            '''new_blue_shot = BlueShot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
-            blue_tank.previous_x_speed, blue_tank.previous_y_speed)'''
-            new_blue_shot.action_shoot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
-            blue_tank.previous_x_speed, blue_tank.previous_y_speed)
+            update_position_shot_blue(True)
             all_sprites.add(new_blue_shot)
-            
-            blue_shot_limiter = 0
-            blue_already_thrown = True
 
         if time_count < Constant.GAME_TIME:
             move_tanks_sound()
             screen.fill(Color.RED)
-        
-        if new_blue_shot.rect.colliderect(green_tank.rect):
-            print("colidiu")
+
+        collision_shots()
+
         display_score(screen, Constant.SCORE_1_POS, 1, color_1)
         display_score(screen, Constant.SCORE_2_POS, 2, color_2)
         all_sprites.update()
