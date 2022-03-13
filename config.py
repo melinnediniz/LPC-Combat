@@ -96,6 +96,8 @@ LEFT_GOAL_Y_POS = 396
 
 class Sounds:
     throw_ball = ""
+    move_tank = "sound/move_tank.wav"
+    flip_tank = "sound/flip_tank.wav"
 
 
 class Constant:
@@ -105,19 +107,18 @@ class Constant:
     SCORE_1_POS = (280, 5)
     SCORE_2_POS = (800, 5)
     GAME_TIME = 41
-    MIN_LIVES = 0
     icon = pygame.image.load('sprites/icon.png')
 
 
 class Color:
     BLACK = (0, 0, 0)
-    RED = (154, 47, 14) # base
-    YELLOW = (220, 176, 73) # obstacles
-    GREEN = (149, 203, 89) # left player
-    BLUE = (90, 100, 224) # right player
-    AQUA = (45, 140, 110) # base start screen
-    PINK = (229, 123, 219) #left player start screen
-    WHITE = (234, 234, 234) # right player start screen
+    RED = (154, 47, 14)  # base
+    YELLOW = (220, 176, 73)  # obstacles
+    GREEN = (149, 203, 89)  # left player
+    BLUE = (90, 100, 224)  # right player
+    AQUA = (45, 140, 110)  # base start screen
+    PINK = (229, 123, 219)  # left player start screen
+    WHITE = (234, 234, 234)  # right player start screen
 
     DARK_RED = (112, 16, 15)
     DARK_GREEN = (10, 121, 0)

@@ -76,7 +76,6 @@ class Game:
         screen.fill(Color.GREEN)
         pygame.display.flip()
 
-
     def main(self):
         global green_already_thrown, blue_already_thrown, green_shot_limiter, blue_shot_limiter
         global time_color_count, color_1, color_2, time_count, score_1, score_2
@@ -178,7 +177,6 @@ class Game:
             blue_already_thrown = False
         green_shot_limiter += 1
         blue_shot_limiter += 1
-
 
     def change_screen(self):
         if self.current_screen == "start":
