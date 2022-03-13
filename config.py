@@ -173,4 +173,4 @@ def reset_score():
     global score_1, score_2
     score_1 = 0
     score_2 = 0
-
+    

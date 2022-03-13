@@ -1,4 +1,3 @@
-from itertools import count
 import random
 from tanks import *
 from scenario import *
@@ -93,12 +92,12 @@ class Game:
                         screen.fill(random.choice(list_colors))
                         time_count = Constant.GAME_TIME + 5
                 elif time_count < Constant.GAME_TIME:
-                    if time_color_count > Constant.GAME_TIME - 13:
+                    if time_color_count > Constant.GAME_TIME - 14:
                         if time_color_count == Constant.GAME_TIME - 13:
                             color_1, color_2 = Color.GREEN, Color.BLUE
                         elif time_color_count == Constant.GAME_TIME - 11: 
                             color_1, color_2 = Color.RED, Color.RED  
-                            time_color_count = Constant.GAME_TIME - 13
+                            time_color_count = Constant.GAME_TIME - 14
             if time_count > Constant.GAME_TIME - 1:
                 blue_tank.lock(), green_tank.lock()
 
