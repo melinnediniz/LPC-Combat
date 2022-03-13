@@ -3,7 +3,7 @@ from tanks import *
 from scenario import *
 from shots import *
 from config import *
-from config import Color, Constant, display_score, update_score, reset_score
+from config import Color, Constant, display_score, update_score, reset_score, move_tanks_sound
 from config import timer, time_count, list_colors, time_color_count, color_1, color_2
 
 pygame.init()
@@ -183,6 +183,7 @@ class Game:
             blue_already_thrown = True
 
         if time_count < Constant.GAME_TIME:
+            move_tanks_sound()
             screen.fill(Color.RED)
         
         if new_blue_shot.rect.colliderect(green_tank.rect):
