@@ -141,8 +141,7 @@ class Game:
             green_shot_limiter = 0
             green_already_thrown = True
         if keys[pygame.K_l] and not blue_already_thrown:
-            new_blue_shot = BlueShot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
-                                     blue_tank.previous_x_speed, blue_tank.previous_y_speed)
+            new_blue_shot = BlueShot(blue_tank.rect.center, blue_tank.shot_x_speed, blue_tank.shot_y_speed)
             all_sprites.add(new_blue_shot)
             blue_shot_limiter = 0
             blue_already_thrown = True
@@ -163,8 +162,6 @@ class Game:
             blue_already_thrown = False
         green_shot_limiter += 1
         blue_shot_limiter += 1
-        print(green_tank_sprite_change_limiter)
-        print(blue_tank_sprite_change_limiter)
 
     def change_screen(self):
         if self.current_screen == "start":
