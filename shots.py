@@ -9,11 +9,19 @@ class BlueShot(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x_pos, y_pos))
         self.x_speed = x_speed
         self.y_speed = y_speed
+        self.shot = False
 
     def update(self):
-        self.rect.x += self.x_speed
-        self.rect.y += self.y_speed
+        if self.shot == True:
+            self.rect.x += self.x_speed
+            self.rect.y += self.y_speed
 
+    def action_shoot(self, x_pos, y_pos, x_speed, y_speed):
+        self.rect = self.image.get_rect(center=(x_pos, y_pos))
+        self.x_speed = x_speed
+        self.y_speed = y_speed
+        self.shot = True
+    
 
 class GreenShot(pygame.sprite.Sprite):
     def __init__(self, x_pos, y_pos, x_speed, y_speed):

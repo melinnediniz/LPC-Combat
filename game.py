@@ -43,8 +43,12 @@ right_rect = pygame.Rect(RIGHT_RECT_X_POS, RIGHT_AND_LEFT_RECT_Y_POS, RIGHT_AND_
                          RIGHT_AND_LEFT_RECT_HEIGHT)
 left_rect = pygame.Rect(LEFT_RECT_X_POS, RIGHT_AND_LEFT_RECT_Y_POS, RIGHT_AND_LEFT_RECT_WIDTH,
                         RIGHT_AND_LEFT_RECT_HEIGHT)
+
+new_blue_shot = BlueShot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
+                         blue_tank.previous_x_speed, blue_tank.previous_y_speed)
 all_sprites.add(blue_tank)
 all_sprites.add(green_tank)
+#all_sprites.add(new_blue_shot)
 all_sprites.add(center_right_block)
 all_sprites.add(center_left_block)
 all_sprites.add(center_top_block)
@@ -169,14 +173,20 @@ class Game:
             green_shot_limiter = 0
             green_already_thrown = True
         if keys[pygame.K_l] and not blue_already_thrown:
-            new_blue_shot = BlueShot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
-                                     blue_tank.previous_x_speed, blue_tank.previous_y_speed)
+            '''new_blue_shot = BlueShot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
+            blue_tank.previous_x_speed, blue_tank.previous_y_speed)'''
+            new_blue_shot.action_shoot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
+            blue_tank.previous_x_speed, blue_tank.previous_y_speed)
             all_sprites.add(new_blue_shot)
+            
             blue_shot_limiter = 0
             blue_already_thrown = True
 
         if time_count < Constant.GAME_TIME:
             screen.fill(Color.RED)
+        
+        if new_blue_shot.rect.colliderect(green_tank.rect):
+            print("colidiu")
         display_score(screen, Constant.SCORE_1_POS, 1, color_1)
         display_score(screen, Constant.SCORE_2_POS, 2, color_2)
         all_sprites.update()
