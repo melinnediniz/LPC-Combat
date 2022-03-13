@@ -1,9 +1,14 @@
+import random
 from tanks import *
 from scenario import *
 from shots import *
+from config import *
+from config import Color, Constant, display_score, update_score, reset_score
+from config import timer, time_count, list_colors, time_color_count, color_1, color_2
 
 pygame.init()
 screen = pygame.display.set_mode(Constant.SCREEN_DIMENSIONS)
+pygame.display.set_icon(Constant.icon)
 pygame.display.set_caption("TANK PONG")
 
 all_sprites = pygame.sprite.Group()
@@ -73,15 +78,41 @@ class Game:
 
     def main(self):
         global green_already_thrown, blue_already_thrown, green_shot_limiter, blue_shot_limiter
+        global time_color_count, color_1, color_2, time_count, score_1, score_2
         for event in pygame.event.get():
+            if event.type == timer:
+                time_count += 1
+                time_color_count += 1
+                print(f"T {time_count}")
+                if time_count > Constant.GAME_TIME:
+                    if time_count == Constant.GAME_TIME + 5:
+                        screen.fill(random.choice(list_colors))
+                    elif time_count > Constant.GAME_TIME + 10:
+                        screen.fill(random.choice(list_colors))
+                        time_count = Constant.GAME_TIME + 5
+                elif time_count < Constant.GAME_TIME:
+                    if time_color_count > Constant.GAME_TIME - 14:
+                        if time_color_count == Constant.GAME_TIME - 13:
+                            color_1, color_2 = Color.GREEN, Color.BLUE
+                        elif time_color_count == Constant.GAME_TIME - 11: 
+                            color_1, color_2 = Color.RED, Color.RED  
+                            time_color_count = Constant.GAME_TIME - 14
+            if time_count > Constant.GAME_TIME - 1:
+                blue_tank.lock(), green_tank.lock()
+
+
             if event.type == pygame.QUIT:
                 exit()
-
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_r:
-                    self.current_screen = "start"
-                elif event.key == pygame.K_ESCAPE:
+                if event.key == pygame.K_ESCAPE:
                     exit()
+                elif event.key == pygame.K_r:
+                    reset_score()
+                    time_color_count = 0
+                    time_count = 0
+                    blue_tank.reset(), green_tank.reset()
+                    print(blue_tank.movement)
+                    self.current_screen = "start"
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d] and keys[pygame.K_w]:
@@ -129,9 +160,10 @@ class Game:
             blue_shot_limiter = 0
             blue_already_thrown = True
 
-        screen.fill(Color.RED)
-        display_score(screen, Constant.SCORE_1_POS, 1)
-        display_score(screen, Constant.SCORE_2_POS, 2)
+        if time_count < Constant.GAME_TIME:
+            screen.fill(Color.RED)
+        display_score(screen, Constant.SCORE_1_POS, 1, color_1)
+        display_score(screen, Constant.SCORE_2_POS, 2, color_2)
         all_sprites.update()
         all_sprites.draw(screen)
         pygame.draw.rect(screen, Color().YELLOW, top_rect)
@@ -150,4 +182,4 @@ class Game:
         if self.current_screen == "start":
             self.start()
         elif self.current_screen == "main":
-            self.main()
+            self.main()        

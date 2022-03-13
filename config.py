@@ -46,7 +46,6 @@ GREEN_SHOT_Y_POS = 396
 '''BLUE_SHOT_SPRITE = 'sprites/blue_shot.png'
 BLUE_SHOT_X_POS = 
 BLUE_SHOT_Y_POS = 
-
 GREEN_SHOT_SPRITE = 'sprites/green_shot.png'
 GREEN_SHOT_X_POS = 
 GREEN_SHOT_Y_POS = '''
@@ -95,7 +94,6 @@ LEFT_GOAL_SPRITE = 'sprites/left_goal.png'
 LEFT_GOAL_X_POS = 164
 LEFT_GOAL_Y_POS = 396
 
-
 class Sounds:
     throw_ball = ""
     move_tank = "sound/move_tank.wav"
@@ -103,11 +101,13 @@ class Sounds:
 
 
 class Constant:
-    FONT = "fonts/PoppkornRegular.ttf"
+    FONT = "fonts/Megafont.ttf"
     SCREEN_DIMENSIONS = (1022, 738)
     CLOCK = 60
     SCORE_1_POS = (280, 5)
     SCORE_2_POS = (800, 5)
+    GAME_TIME = 41
+    icon = pygame.image.load('sprites/icon.png')
 
 
 class Color:
@@ -120,16 +120,30 @@ class Color:
     PINK = (229, 123, 219)  # left player start screen
     WHITE = (234, 234, 234)  # right player start screen
 
+    DARK_RED = (112, 16, 15)
+    DARK_GREEN = (10, 121, 0)
+    CLAY = (181, 146, 90)
+
+
+list_colors = [Color.AQUA, Color.PINK, Color.DARK_RED, Color.DARK_GREEN, Color.CLAY]
 
 # ------ GLOBAL VARIABLES
 game_loop = True
+
 score_1 = 0
 score_2 = 0
-
+color_1 = Color.GREEN
+color_2 = Color.BLUE
 
 # ------- GLOBAL FUNCTIONS
 pygame.init()
 font = pygame.font.Font(Constant.FONT, 60)
+
+# time event
+time_count = 0
+time_color_count = 0
+timer = pygame.USEREVENT
+pygame.time.set_timer(timer, 1000)
 
 
 def play_sound(file, vol):
@@ -138,14 +152,12 @@ def play_sound(file, vol):
     sound.play()
 
 
-def display_score(surf, position, score):
+def display_score(surf, position, score, color):
     global score_1, score_2
-    color = Color.GREEN
     if score == 1:
         score = score_1
     elif score == 2:
         score = score_2
-        color = Color.BLUE
     score_surf = font.render(f'{score}', True, color)
     score_rect = score_surf.get_rect(topleft=position)
     surf.blit(score_surf, score_rect)
@@ -154,18 +166,12 @@ def display_score(surf, position, score):
 def update_score(score):
     global score_1, score_2
     if score == 1:
-        score_1 += 1
+            score_1 +=1
     elif score == 2:
-        score_2 += 1
+            score_2 += 1
 
-
-def winner():
+def reset_score():
     global score_1, score_2
-    if score_2 > score_1:
-        winner = 'PLAYER 2 WON'
-    elif score_2 == score_1:
-        winner = 'DRAW'
-    else:
-        winner = 'PLAYER 1 WON'
+    score_1 = 0
+    score_2 = 0
     
-    return winner
