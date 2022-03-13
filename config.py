@@ -13,25 +13,15 @@ RIGHT_RECT_X_POS = 0
 LEFT_RECT_X_POS = 982
 RIGHT_AND_LEFT_RECT_Y_POS = 55
 
-BLUE_TANK_SPRITE_UP = 'sprites/blue_tank_up.png'
-BLUE_TANK_SPRITE_DOWN = 'sprites/blue_tank_down.png'
-BLUE_TANK_SPRITE_RIGHT = 'sprites/blue_tank_right.png'
-BLUE_TANK_SPRITE_LEFT = 'sprites/blue_tank_left.png'
-BLUE_TANK_SPRITE_DIAGONAL_TOP_RIGHT = 'sprites/blue_tank_diagonal_top_right.png'
-BLUE_TANK_SPRITE_DIAGONAL_TOP_LEFT = 'sprites/blue_tank_diagonal_top_left.png'
-BLUE_TANK_SPRITE_DIAGONAL_BOTTOM_RIGHT = 'sprites/blue_tank_diagonal_bottom_right.png'
-BLUE_TANK_SPRITE_DIAGONAL_BOTTOM_LEFT = 'sprites/blue_tank_diagonal_bottom_left.png'
+BLUE_TANK_SPRITE_SHEET = []
+for i in range(0, 360, 15):
+    BLUE_TANK_SPRITE_SHEET.append(pygame.image.load(f'sprites/blue_tank/{i}.png'))
 BLUE_TANK_X_POS = 932
 BLUE_TANK_Y_POS = 396
 
-GREEN_TANK_SPRITE_UP = 'sprites/green_tank_up.png'
-GREEN_TANK_SPRITE_DOWN = 'sprites/green_tank_down.png'
-GREEN_TANK_SPRITE_RIGHT = 'sprites/green_tank_right.png'
-GREEN_TANK_SPRITE_LEFT = 'sprites/green_tank_left.png'
-GREEN_TANK_SPRITE_DIAGONAL_TOP_RIGHT = 'sprites/green_tank_diagonal_top_right.png'
-GREEN_TANK_SPRITE_DIAGONAL_TOP_LEFT = 'sprites/green_tank_diagonal_top_left.png'
-GREEN_TANK_SPRITE_DIAGONAL_BOTTOM_RIGHT = 'sprites/green_tank_diagonal_bottom_right.png'
-GREEN_TANK_SPRITE_DIAGONAL_BOTTOM_LEFT = 'sprites/green_tank_diagonal_bottom_left.png'
+GREEN_TANK_SPRITE_SHEET = []
+for i in range(0, 360, 15):
+    GREEN_TANK_SPRITE_SHEET.append(pygame.image.load(f'sprites/green_tank/{i}.png'))
 GREEN_TANK_X_POS = 90
 GREEN_TANK_Y_POS = 396
 

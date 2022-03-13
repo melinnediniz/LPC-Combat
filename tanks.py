@@ -5,15 +5,16 @@ import pygame
 class BlueTank(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load(BLUE_TANK_SPRITE_UP)
+        self.sprite_sheet = BLUE_TANK_SPRITE_SHEET
+        self.image = self.sprite_sheet[0]
         self.rect = self.image.get_rect(center=(BLUE_TANK_X_POS, BLUE_TANK_Y_POS))
         self.x_speed = 0
         self.previous_x_speed = -6
         self.y_speed = 0
         self.previous_y_speed = 0
 
-    def move_up(self):
-        self.image = pygame.image.load(BLUE_TANK_SPRITE_UP)
+    def move_up(self, angle):
+        self.image = self.sprite_sheet[angle]
         if self.x_speed - 2 == 0:
             self.previous_x_speed = self.x_speed * 3
             self.x_speed -= 2
@@ -23,8 +24,8 @@ class BlueTank(pygame.sprite.Sprite):
         self.y_speed = 0
         self.previous_y_speed = self.y_speed
 
-    def move_down(self):
-        self.image = pygame.image.load(BLUE_TANK_SPRITE_DOWN)
+    def move_down(self, angle):
+        self.image = self.sprite_sheet[angle]
         if self.x_speed + 2 == 0:
             self.previous_x_speed = self.x_speed * 3
             self.x_speed += 2
@@ -34,47 +35,27 @@ class BlueTank(pygame.sprite.Sprite):
         self.y_speed = 0
         self.previous_y_speed = self.y_speed
 
-    def move_right(self):
-        self.image = pygame.image.load(BLUE_TANK_SPRITE_RIGHT)
-        self.x_speed = 0
+    def move_right(self, angle):
+        self.image = self.sprite_sheet[angle]
+        '''self.x_speed = 0
         self.previous_x_speed = self.x_speed
         if self.y_speed - 2 == 0:
             self.previous_y_speed = self.y_speed * 3
             self.y_speed -= 2
         else:
             self.y_speed -= 2
-            self.previous_y_speed = self.y_speed * 3
+            self.previous_y_speed = self.y_speed * 3'''
 
-    def move_left(self):
-        self.image = pygame.image.load(BLUE_TANK_SPRITE_LEFT)
-        self.x_speed = 0
+    def move_left(self, angle):
+        self.image = self.sprite_sheet[angle]
+        '''self.x_speed = 0
         self.previous_x_speed = self.x_speed
         if self.y_speed + 2 == 0:
             self.previous_y_speed = self.y_speed * 3
             self.y_speed += 2
         else:
             self.y_speed += 2
-            self.previous_y_speed = self.y_speed * 3
-
-    def move_diagonal_top_right(self):
-        self.image = pygame.image.load(BLUE_TANK_SPRITE_DIAGONAL_TOP_RIGHT)
-        self.x_speed += 2
-        self.y_speed = 0
-
-    def move_diagonal_top_left(self):
-        self.image = pygame.image.load(BLUE_TANK_SPRITE_DIAGONAL_TOP_LEFT)
-        self.x_speed += 2
-        self.y_speed = 0
-
-    def move_diagonal_bottom_right(self):
-        self.image = pygame.image.load(BLUE_TANK_SPRITE_DIAGONAL_BOTTOM_RIGHT)
-        self.x_speed += 2
-        self.y_speed = 0
-
-    def move_diagonal_bottom_left(self):
-        self.image = pygame.image.load(BLUE_TANK_SPRITE_DIAGONAL_BOTTOM_LEFT)
-        self.x_speed += 2
-        self.y_speed = 0
+            self.previous_y_speed = self.y_speed * 3'''
 
     def turn_off_speed(self):
         self.x_speed = 0
@@ -93,17 +74,16 @@ class BlueTank(pygame.sprite.Sprite):
 class GreenTank(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load(GREEN_TANK_SPRITE_UP)
-        self.sprite = GREEN_TANK_SPRITE_UP
+        self.sprite_sheet = GREEN_TANK_SPRITE_SHEET
+        self.image = self.sprite_sheet[0]
         self.rect = self.image.get_rect(center=(GREEN_TANK_X_POS, GREEN_TANK_Y_POS))
         self.x_speed = 0
         self.previous_x_speed = 6
         self.y_speed = 0
         self.previous_y_speed = 0
 
-    def move_up(self):
-        self.image = pygame.image.load(GREEN_TANK_SPRITE_UP)
-        self.sprite = GREEN_TANK_SPRITE_UP
+    def move_up(self, angle):
+        self.image = self.sprite_sheet[angle]
         if self.x_speed + 2 == 0:
             self.previous_x_speed = self.x_speed * 3
             self.x_speed += 2
@@ -113,9 +93,8 @@ class GreenTank(pygame.sprite.Sprite):
         self.y_speed = 0
         self.previous_y_speed = self.y_speed
 
-    def move_down(self):
-        self.image = pygame.image.load(GREEN_TANK_SPRITE_DOWN)
-        self.sprite = GREEN_TANK_SPRITE_DOWN
+    def move_down(self, angle):
+        self.image = self.sprite_sheet[angle]
         if self.x_speed - 2 == 0:
             self.previous_x_speed = self.x_speed * 3
             self.x_speed -= 2
@@ -125,51 +104,27 @@ class GreenTank(pygame.sprite.Sprite):
         self.y_speed = 0
         self.previous_y_speed = self.y_speed
 
-    def move_right(self):
-        self.image = pygame.image.load(GREEN_TANK_SPRITE_RIGHT)
-        self.sprite = GREEN_TANK_SPRITE_RIGHT
-        self.x_speed = 0
+    def move_right(self, angle):
+        self.image = self.sprite_sheet[angle]
+        '''self.x_speed = 0
         self.previous_x_speed = self.x_speed
         if self.y_speed + 2 == 0:
             self.previous_y_speed = self.y_speed * 3
             self.y_speed += 2
         else:
             self.y_speed += 2
-            self.previous_y_speed = self.y_speed * 3
+            self.previous_y_speed = self.y_speed * 3'''
 
-    def move_left(self):
-        self.image = pygame.image.load(GREEN_TANK_SPRITE_LEFT)
-        self.sprite = GREEN_TANK_SPRITE_LEFT
-        self.x_speed = 0
+    def move_left(self, angle):
+        self.image = self.sprite_sheet[angle]
+        '''self.x_speed = 0
         self.previous_x_speed = self.x_speed
         if self.y_speed - 2 == 0:
             self.previous_y_speed = self.y_speed * 3
             self.y_speed -= 2
         else:
             self.y_speed -= 2
-            self.previous_y_speed = self.y_speed * 3
-
-    def move_diagonal_top_right(self):
-        self.image = pygame.image.load(GREEN_TANK_SPRITE_DIAGONAL_TOP_RIGHT)
-        self.x_speed += 2
-        self.previous_x_speed = self.x_speed
-        self.y_speed += 2
-
-    def move_diagonal_top_left(self):
-        self.image = pygame.image.load(GREEN_TANK_SPRITE_DIAGONAL_TOP_LEFT)
-        self.x_speed += 2
-        self.previous_x_speed = self.x_speed
-        self.y_speed -= 2
-
-    def move_diagonal_bottom_right(self):
-        self.image = pygame.image.load(GREEN_TANK_SPRITE_DIAGONAL_BOTTOM_RIGHT)
-        self.x_speed -= 2
-        self.y_speed += 2
-
-    def move_diagonal_bottom_left(self):
-        self.image = pygame.image.load(GREEN_TANK_SPRITE_DIAGONAL_BOTTOM_LEFT)
-        self.x_speed -= 2
-        self.y_speed -= 2
+            self.previous_y_speed = self.y_speed * 3'''
 
     def turn_off_speed(self):
         self.x_speed = 0
