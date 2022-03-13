@@ -145,31 +145,41 @@ time_color_count = 0
 timer = pygame.USEREVENT
 pygame.time.set_timer(timer, 1000)
 
-def start_sound(sound):
-    if sound == 'move':
-        Sounds.move_tank.play()
-    if sound == 'throw':
-        Sounds.throw_ball.play()
 
-def stop_sound(sound):
-    if sound == 'move':
-        Sounds.move_tank.stop()
+pygame.mixer.init(frequency = 44100, size = -16, channels = 2, buffer = 512)
+green_tank_channel = pygame.mixer.Channel(0)
+blue_tank_channel = pygame.mixer.Channel(1)
 
 
-def play_sound_green():
+def move_tanks_sound():
+    global green_tank_channel, blue_tank_channel
+    blue_tank_channel.set_volume(0.5)
     key = pygame.key.get_pressed()
-    if not pygame.mixer.get_busy():
+    if not green_tank_channel.get_busy():
         if key[pygame.K_d]:
-            start_sound('move')
-        elif key[pygame.K_s]:
-            start_sound('move')
-        elif key[pygame.K_w]:
-            start_sound('move')
-        elif key[pygame.K_a]:
-            start_sound('move')
-    elif pygame.mixer.get_busy():
-        if not key[pygame.K_d] and (not key[pygame.K_s]) and (not key[pygame.K_a] and (not key[pygame.K_w])):
-            stop_sound('move')
+            green_tank_channel.play(Sounds.move_tank)
+        if key[pygame.K_s]:
+            green_tank_channel.play(Sounds.move_tank)
+        if key[pygame.K_a]:
+            green_tank_channel.play(Sounds.move_tank)
+        if key[pygame.K_w]:
+            green_tank_channel.play(Sounds.move_tank)
+    elif green_tank_channel.get_busy():
+        if not key[pygame.K_d] and (not key[pygame.K_s]) and (not key[pygame.K_a]) and (not key[pygame.K_w]):
+            green_tank_channel.stop()
+
+    if not blue_tank_channel.get_busy():
+        if key[pygame.K_LEFT]:
+            blue_tank_channel.play(Sounds.move_tank)
+        if key[pygame.K_RIGHT]:
+            blue_tank_channel.play(Sounds.move_tank)
+        if key[pygame.K_UP]:
+            blue_tank_channel.play(Sounds.move_tank)
+        if key[pygame.K_DOWN]:
+            blue_tank_channel.play(Sounds.move_tank)
+    elif blue_tank_channel.get_busy():
+        if not key[pygame.K_LEFT] and (not key[pygame.K_RIGHT]) and (not key[pygame.K_UP]) and (not key[pygame.K_DOWN]):
+            blue_tank_channel.stop()
 
                 
 def display_score(surf, position, score, color):
