@@ -142,7 +142,7 @@ class Game:
             blue_shot_limiter = 0
             blue_already_thrown = True
 
-        def collision_shots():
+        def collision_shots_tanks():
             if new_blue_shot.rect.colliderect(green_tank.rect):
                 kill_sound()
                 new_blue_shot.kill()
@@ -152,6 +152,14 @@ class Game:
                 kill_sound()
                 new_green_shot.kill()
                 update_position_shot_green(False)
+        
+        def collision_shots_blocks():
+            #center_left_block center_top_block center_bottom_block  top_right_block top_left_block bottom_right_block bottom_left_block right_up_rectangle
+            if new_blue_shot.rect.colliderect(center_right_block.rect):
+                print("colidiu")
+
+            #if new_green_shot.rect.colliderect(green_tank.rect):
+
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d] and keys[pygame.K_w]:
@@ -205,7 +213,8 @@ class Game:
             move_tanks_sound()
             screen.fill(Color.RED)
 
-        collision_shots()
+        collision_shots_tanks()
+        collision_shots_blocks()
 
         display_score(screen, Constant.SCORE_1_POS, 1, color_1)
         display_score(screen, Constant.SCORE_2_POS, 2, color_2)
