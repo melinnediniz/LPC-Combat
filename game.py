@@ -3,7 +3,7 @@ from tanks import *
 from scenario import *
 from shots import *
 from config import *
-from config import Color, Constant, display_score, update_score, reset_score
+from config import Color, Constant, display_score, update_score, reset_score, play_sound_green
 from config import timer, time_count, list_colors, time_color_count, color_1, color_2
 
 pygame.init()
@@ -100,7 +100,6 @@ class Game:
             if time_count > Constant.GAME_TIME - 1:
                 blue_tank.lock(), green_tank.lock()
 
-
             if event.type == pygame.QUIT:
                 exit()
             if event.type == pygame.KEYDOWN:
@@ -161,6 +160,7 @@ class Game:
             blue_already_thrown = True
 
         if time_count < Constant.GAME_TIME:
+            play_sound_green()
             screen.fill(Color.RED)
         display_score(screen, Constant.SCORE_1_POS, 1, color_1)
         display_score(screen, Constant.SCORE_2_POS, 2, color_2)

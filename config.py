@@ -94,10 +94,11 @@ LEFT_GOAL_SPRITE = 'sprites/left_goal.png'
 LEFT_GOAL_X_POS = 164
 LEFT_GOAL_Y_POS = 396
 
+pygame.init()
 class Sounds:
-    throw_ball = ""
-    move_tank = "sound/move_tank.wav"
-    flip_tank = "sound/flip_tank.wav"
+    throw_ball = pygame.mixer.Sound('sound/shot.ogg')
+    move_tank = pygame.mixer.Sound("sound/move.ogg")
+    flip_tank = pygame.mixer.Sound("sound/flip.wav")
 
 
 class Constant:
@@ -107,18 +108,19 @@ class Constant:
     SCORE_1_POS = (280, 5)
     SCORE_2_POS = (800, 5)
     GAME_TIME = 41
+    MIN_LIVES = 0
     icon = pygame.image.load('sprites/icon.png')
 
 
 class Color:
     BLACK = (0, 0, 0)
-    RED = (154, 47, 14)  # base
-    YELLOW = (220, 176, 73)  # obstacles
-    GREEN = (149, 203, 89)  # left player
-    BLUE = (90, 100, 224)  # right player
-    AQUA = (45, 140, 110)  # base start screen
-    PINK = (229, 123, 219)  # left player start screen
-    WHITE = (234, 234, 234)  # right player start screen
+    RED = (154, 47, 14) # base
+    YELLOW = (220, 176, 73) # obstacles
+    GREEN = (149, 203, 89) # left player
+    BLUE = (90, 100, 224) # right player
+    AQUA = (45, 140, 110) # base start screen
+    PINK = (229, 123, 219) #left player start screen
+    WHITE = (234, 234, 234) # right player start screen
 
     DARK_RED = (112, 16, 15)
     DARK_GREEN = (10, 121, 0)
@@ -129,14 +131,12 @@ list_colors = [Color.AQUA, Color.PINK, Color.DARK_RED, Color.DARK_GREEN, Color.C
 
 # ------ GLOBAL VARIABLES
 game_loop = True
-
 score_1 = 0
 score_2 = 0
 color_1 = Color.GREEN
 color_2 = Color.BLUE
 
 # ------- GLOBAL FUNCTIONS
-pygame.init()
 font = pygame.font.Font(Constant.FONT, 60)
 
 # time event
@@ -145,13 +145,33 @@ time_color_count = 0
 timer = pygame.USEREVENT
 pygame.time.set_timer(timer, 1000)
 
+def start_sound(sound):
+    if sound == 'move':
+        Sounds.move_tank.play()
+    if sound == 'throw':
+        Sounds.throw_ball.play()
 
-def play_sound(file, vol):
-    sound = pygame.mixer.Sound(file)
-    sound.set_volume(vol)
-    sound.play()
+def stop_sound(sound):
+    if sound == 'move':
+        Sounds.move_tank.stop()
 
 
+def play_sound_green():
+    key = pygame.key.get_pressed()
+    if not pygame.mixer.get_busy():
+        if key[pygame.K_d]:
+            start_sound('move')
+        elif key[pygame.K_s]:
+            start_sound('move')
+        elif key[pygame.K_w]:
+            start_sound('move')
+        elif key[pygame.K_a]:
+            start_sound('move')
+    elif pygame.mixer.get_busy():
+        if not key[pygame.K_d] and (not key[pygame.K_s]) and (not key[pygame.K_a] and (not key[pygame.K_w])):
+            stop_sound('move')
+
+                
 def display_score(surf, position, score, color):
     global score_1, score_2
     if score == 1:
@@ -174,4 +194,4 @@ def reset_score():
     global score_1, score_2
     score_1 = 0
     score_2 = 0
-    
+
