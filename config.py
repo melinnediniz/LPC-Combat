@@ -158,7 +158,7 @@ kill_channel = pygame.mixer.Channel(2)
 
 def move_tanks_sound():
     global green_tank_channel, blue_tank_channel
-    blue_tank_channel.set_volume(0.5)
+    blue_tank_channel.set_volume(0.5), green_tank_channel.set_volume(0.5)
     key = pygame.key.get_pressed()
     if not green_tank_channel.get_busy():
         if key[pygame.K_d] or key[pygame.K_s] or key[pygame.K_a] or key[pygame.K_w]:
