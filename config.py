@@ -107,6 +107,7 @@ class Sounds:
 
 class Constant:
     FONT = "fonts/Megafont.ttf"
+    FONT_2 = "fonts/G7StarForce.ttf"
     SCREEN_DIMENSIONS = (1022, 738)
     CLOCK = 60
     SCORE_1_POS = (280, 5)
@@ -142,6 +143,8 @@ color_2 = Color.BLUE
 
 # ------- GLOBAL FUNCTIONS
 font = pygame.font.Font(Constant.FONT, 60)
+font_start = pygame.font.Font(Constant.FONT, 120)
+font_msg = pygame.font.Font(Constant.FONT_2, 22)
 
 # time event
 time_count = 0
@@ -155,32 +158,32 @@ green_tank_channel = pygame.mixer.Channel(0)
 blue_tank_channel = pygame.mixer.Channel(1)
 kill_channel = pygame.mixer.Channel(2)
 
+def start_text(surf):
+    combat_surf = font_start.render('COMBAT', True, Color.YELLOW)
+    combat_rect = combat_surf.get_rect(topleft=(215, 245))
+    bg_surf = font_start.render('COMBAT', True, Color.BLACK)
+    bg_rect = bg_surf.get_rect(topleft=(220, 250))
+    surf.blit(bg_surf, bg_rect)
+    surf.blit(combat_surf, combat_rect)
+
+    press_surf = font_msg.render('PRESS "SPACE" TO PLAY', True, Color.BLACK)
+    press_rect = press_surf.get_rect(topleft=(295, 560))
+    surf.blit(press_surf, press_rect)
+
 
 def move_tanks_sound():
     global green_tank_channel, blue_tank_channel
-    blue_tank_channel.set_volume(0.5)
+    blue_tank_channel.set_volume(0.5), green_tank_channel.set_volume(0.5)
     key = pygame.key.get_pressed()
     if not green_tank_channel.get_busy():
-        if key[pygame.K_d]:
-            green_tank_channel.play(Sounds.move_tank)
-        if key[pygame.K_s]:
-            green_tank_channel.play(Sounds.move_tank)
-        if key[pygame.K_a]:
-            green_tank_channel.play(Sounds.move_tank)
-        if key[pygame.K_w]:
+        if key[pygame.K_d] or key[pygame.K_s] or key[pygame.K_a] or key[pygame.K_w]:
             green_tank_channel.play(Sounds.move_tank)
     elif green_tank_channel.get_busy():
         if not key[pygame.K_d] and (not key[pygame.K_s]) and (not key[pygame.K_a]) and (not key[pygame.K_w]):
             green_tank_channel.stop()
 
     if not blue_tank_channel.get_busy():
-        if key[pygame.K_LEFT]:
-            blue_tank_channel.play(Sounds.move_tank)
-        if key[pygame.K_RIGHT]:
-            blue_tank_channel.play(Sounds.move_tank)
-        if key[pygame.K_UP]:
-            blue_tank_channel.play(Sounds.move_tank)
-        if key[pygame.K_DOWN]:
+        if key[pygame.K_LEFT] or key[pygame.K_RIGHT] or key[pygame.K_DOWN] or key[pygame.K_UP]:
             blue_tank_channel.play(Sounds.move_tank)
     elif blue_tank_channel.get_busy():
         if not key[pygame.K_LEFT] and (not key[pygame.K_RIGHT]) and (not key[pygame.K_UP]) and (not key[pygame.K_DOWN]):

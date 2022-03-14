@@ -4,7 +4,7 @@ from tanks import *
 from scenario import *
 from shots import *
 from config import *
-from config import Color, Constant, display_score, update_score, reset_score, move_tanks_sound
+from config import Color, Constant, display_score, update_score, reset_score, move_tanks_sound, start_text
 from config import timer, time_count, list_colors, time_color_count, color_1, color_2
 
 pygame.init()
@@ -87,7 +87,8 @@ class Game:
                 elif event.key == pygame.K_ESCAPE:
                     exit()
 
-        screen.fill(Color.GREEN)
+        screen.fill(Color.RED)
+        start_text(screen)
         pygame.display.flip()
 
     def main(self):
