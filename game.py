@@ -122,6 +122,7 @@ class Game:
 
                 print(f"T {time_count}")
                 if time_count > Constant.GAME_TIME:
+                    green_already_thrown, blue_already_thrown = True, True
                     if time_count == Constant.GAME_TIME + 5:
                         screen.fill(random.choice(list_colors))
                     elif time_count > Constant.GAME_TIME + 10:
