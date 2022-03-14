@@ -1,3 +1,4 @@
+from turtle import speed
 from config import *
 import pygame
 
@@ -21,52 +22,68 @@ class BlueTank(pygame.sprite.Sprite):
         self.image = pygame.image.load(BLUE_TANK_SPRITE_UP)
         self.rect = self.image.get_rect(center=(BLUE_TANK_X_POS, BLUE_TANK_Y_POS))
 
-    def move_up(self):
+    def move_up(self, colide):
         if self.movement == True:
+            if colide == False:
                 self.image = pygame.image.load(BLUE_TANK_SPRITE_UP)
-                if self.x_speed - 2 == 0:
-                    self.previous_x_speed = self.x_speed * 3
-                    self.x_speed -= 2
-                else:
-                    self.x_speed -= 2
-                    self.previous_x_speed = self.x_speed * 3
-                self.y_speed = 0
-                self.previous_y_speed = self.y_speed
-
-    def move_down(self):
-        if self.movement == True:
-            self.image = pygame.image.load(BLUE_TANK_SPRITE_DOWN)
-            if self.x_speed + 2 == 0:
-                self.previous_x_speed = self.x_speed * 3
-                self.x_speed += 2
+                speed = 2
             else:
-                self.x_speed += 2
+                speed = 15
+            if self.x_speed - speed == 0:
+                self.previous_x_speed = self.x_speed * 3
+                self.x_speed -= speed
+            else:
+                self.x_speed -= speed
                 self.previous_x_speed = self.x_speed * 3
             self.y_speed = 0
             self.previous_y_speed = self.y_speed
 
-    def move_right(self):
+    def move_down(self, colide):
         if self.movement == True:
-            self.image = pygame.image.load(BLUE_TANK_SPRITE_RIGHT)
+            if colide == False:
+                self.image = pygame.image.load(BLUE_TANK_SPRITE_DOWN)
+                speed = 2
+            else:
+                speed = 15
+            if self.x_speed + speed == 0:
+                self.previous_x_speed = self.x_speed * 3
+                self.x_speed += speed
+            else:
+                self.x_speed += speed
+                self.previous_x_speed = self.x_speed * 3
+            self.y_speed = 0
+            self.previous_y_speed = self.y_speed
+
+    def move_right(self, colide):
+        if self.movement == True:
+            if colide == False:
+                self.image = pygame.image.load(BLUE_TANK_SPRITE_RIGHT)
+                speed = 2
+            else:
+                speed = 15
             self.x_speed = 0
             self.previous_x_speed = self.x_speed
-            if self.y_speed - 2 == 0:
+            if self.y_speed - speed == 0:
                 self.previous_y_speed = self.y_speed * 3
-                self.y_speed -= 2
+                self.y_speed -= speed
             else:
-                self.y_speed -= 2
+                self.y_speed -= speed
                 self.previous_y_speed = self.y_speed * 3
 
-    def move_left(self):
+    def move_left(self, colide):
         if self.movement == True:
-            self.image = pygame.image.load(BLUE_TANK_SPRITE_LEFT)
+            if colide == False:
+                self.image = pygame.image.load(BLUE_TANK_SPRITE_LEFT)
+                speed = 2
+            else:
+                speed = 15
             self.x_speed = 0
             self.previous_x_speed = self.x_speed
-            if self.y_speed + 2 == 0:
+            if self.y_speed + speed == 0:
                 self.previous_y_speed = self.y_speed * 3
-                self.y_speed += 2
+                self.y_speed += speed
             else:
-                self.y_speed += 2
+                self.y_speed += speed
                 self.previous_y_speed = self.y_speed * 3
 
     def move_diagonal_top_right(self):
@@ -129,56 +146,72 @@ class GreenTank(pygame.sprite.Sprite):
         self.image = pygame.image.load(GREEN_TANK_SPRITE_UP)
         self.rect = self.image.get_rect(center=(GREEN_TANK_X_POS, GREEN_TANK_Y_POS))
 
-    def move_up(self):
+    def move_up(self, colide):
         if self.movement == True:
-            self.image = pygame.image.load(GREEN_TANK_SPRITE_UP)
-            self.sprite = GREEN_TANK_SPRITE_UP
-            if self.x_speed + 2 == 0:
-                self.previous_x_speed = self.x_speed * 3
-                self.x_speed += 2
+            if colide == False:
+                self.image = pygame.image.load(GREEN_TANK_SPRITE_UP)
+                self.sprite = GREEN_TANK_SPRITE_UP
+                speed = 2
             else:
-                self.x_speed += 2
+                speed = 15
+            if self.x_speed + speed == 0:
                 self.previous_x_speed = self.x_speed * 3
-            self.y_speed = 0
-            self.previous_y_speed = self.y_speed
-
-    def move_down(self):
-        if self.movement == True:
-            self.image = pygame.image.load(GREEN_TANK_SPRITE_DOWN)
-            self.sprite = GREEN_TANK_SPRITE_DOWN
-            if self.x_speed - 2 == 0:
-                self.previous_x_speed = self.x_speed * 3
-                self.x_speed -= 2
+                self.x_speed += speed
             else:
-                self.x_speed -= 2
+                self.x_speed += speed
                 self.previous_x_speed = self.x_speed * 3
             self.y_speed = 0
             self.previous_y_speed = self.y_speed
 
-    def move_right(self):
+    def move_down(self, colide):
         if self.movement == True:
-            self.image = pygame.image.load(GREEN_TANK_SPRITE_RIGHT)
-            self.sprite = GREEN_TANK_SPRITE_RIGHT
+            if colide == False:
+                self.image = pygame.image.load(GREEN_TANK_SPRITE_DOWN)
+                self.sprite = GREEN_TANK_SPRITE_DOWN
+                speed = 2
+            else:
+                speed = 15
+            if self.x_speed - speed == 0:
+                self.previous_x_speed = self.x_speed * 3
+                self.x_speed -= speed
+            else:
+                self.x_speed -= speed
+                self.previous_x_speed = self.x_speed * 3
+            self.y_speed = 0
+            self.previous_y_speed = self.y_speed
+
+    def move_right(self, colide):
+        if self.movement == True:
+            if colide == False:
+                self.image = pygame.image.load(GREEN_TANK_SPRITE_RIGHT)
+                self.sprite = GREEN_TANK_SPRITE_RIGHT
+                speed = 2
+            else:
+                speed = 15
             self.x_speed = 0
             self.previous_x_speed = self.x_speed
-            if self.y_speed + 2 == 0:
+            if self.y_speed + speed == 0:
                 self.previous_y_speed = self.y_speed * 3
-                self.y_speed += 2
+                self.y_speed += speed
             else:
-                self.y_speed += 2
+                self.y_speed += speed
                 self.previous_y_speed = self.y_speed * 3
 
-    def move_left(self):
+    def move_left(self, colide):
         if self.movement == True:
-            self.image = pygame.image.load(GREEN_TANK_SPRITE_LEFT)
-            self.sprite = GREEN_TANK_SPRITE_LEFT
+            if colide == False:
+                self.image = pygame.image.load(GREEN_TANK_SPRITE_LEFT)
+                self.sprite = GREEN_TANK_SPRITE_LEFT
+                speed = 2
+            else:
+                speed = 15
             self.x_speed = 0
             self.previous_x_speed = self.x_speed
-            if self.y_speed - 2 == 0:
+            if self.y_speed - speed == 0:
                 self.previous_y_speed = self.y_speed * 3
-                self.y_speed -= 2
+                self.y_speed -= speed
             else:
-                self.y_speed -= 2
+                self.y_speed -= speed
                 self.previous_y_speed = self.y_speed * 3
 
     def move_diagonal_top_right(self):
