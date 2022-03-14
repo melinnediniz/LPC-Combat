@@ -1,4 +1,5 @@
 import random
+from shutil import move
 from tanks import *
 from scenario import *
 from shots import *
@@ -153,13 +154,13 @@ class Game:
 
 
         def collision_shots_tanks():
-            if new_blue_shot.rect.colliderect(green_tank.rect):
+            if new_blue_shot.rect.colliderect(green_tank.rect) and new_blue_shot.shot == True:
                 kill_sound()
                 new_blue_shot.kill()
                 update_position_shot_blue(False)
                 update_score(2)
 
-            if new_green_shot.rect.colliderect(blue_tank.rect):
+            if new_green_shot.rect.colliderect(blue_tank.rect) and new_green_shot.shot == True:
                 kill_sound()
                 new_green_shot.kill()
                 update_position_shot_green(False)
@@ -252,6 +253,117 @@ class Game:
             if new_green_shot.rect.colliderect(left_goal.rect):
                 print("colidiu")
 
+        def collision_tank_blue():
+            if blue_tank.rect.colliderect(center_right_block.rect):
+                return True 
+
+            if blue_tank.rect.colliderect(center_left_block.rect):
+                return True
+            
+            if blue_tank.rect.colliderect(center_top_block.rect):
+                return True
+            
+            if blue_tank.rect.colliderect(center_bottom_block.rect):
+                return True
+            
+            if blue_tank.rect.colliderect(top_right_block.rect):
+                return True
+            
+            if blue_tank.rect.colliderect(top_left_block.rect):
+                return True
+
+            if blue_tank.rect.colliderect(bottom_right_block.rect):
+                return True
+            
+            if blue_tank.rect.colliderect(bottom_left_block.rect):
+                return True
+
+            if blue_tank.rect.colliderect(right_up_rectangle.rect):
+                return True
+
+            if blue_tank.rect.colliderect(right_down_rectangle.rect):
+                return True
+
+            if blue_tank.rect.colliderect(left_up_rectangle.rect):
+                return True
+
+            if blue_tank.rect.colliderect(left_down_rectangle.rect):
+                return True
+
+            if blue_tank.rect.colliderect(right_goal.rect):
+                return True
+
+            if blue_tank.rect.colliderect(left_goal.rect):
+                return True
+
+            if  blue_tank.rect.colliderect(right_rect):
+                return True
+            
+            if  blue_tank.rect.colliderect(left_rect):
+                return True
+            
+            if  blue_tank.rect.colliderect(top_rect):
+                return True
+            
+            if  blue_tank.rect.colliderect(bottom_rect):
+                return True
+
+            
+        def collision_tank_green():
+            if green_tank.rect.colliderect(center_right_block.rect):
+                return True
+
+            if green_tank.rect.colliderect(center_left_block.rect):
+                return True
+            
+            if green_tank.rect.colliderect(center_top_block.rect):
+                return True
+            
+            if green_tank.rect.colliderect(center_bottom_block.rect):
+                return True
+            
+            if green_tank.rect.colliderect(top_right_block.rect):
+                return True
+            
+            if green_tank.rect.colliderect(top_left_block.rect):
+                return True
+
+            if green_tank.rect.colliderect(bottom_right_block.rect):
+                return True
+            
+            if green_tank.rect.colliderect(bottom_left_block.rect):
+                return True
+
+            if green_tank.rect.colliderect(right_up_rectangle.rect):
+                return True
+
+            if green_tank.rect.colliderect(right_down_rectangle.rect):
+                return True
+
+            if green_tank.rect.colliderect(left_up_rectangle.rect):
+                return True
+
+            if green_tank.rect.colliderect(left_down_rectangle.rect):
+                return True
+
+            if green_tank.rect.colliderect(right_goal.rect):
+                return True
+
+            if green_tank.rect.colliderect(left_goal.rect):
+                return True
+            
+            if  green_tank.rect.colliderect(right_rect):
+                return True
+            
+            if  green_tank.rect.colliderect(left_rect):
+                return True
+            
+            if  green_tank.rect.colliderect(top_rect):
+                return True
+            
+            if  green_tank.rect.colliderect(bottom_rect):
+                return True
+
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d] and keys[pygame.K_w]:
@@ -271,29 +383,45 @@ class Game:
         if keys[pygame.K_RIGHT] and keys[pygame.K_DOWN]:
             blue_tank.move_diagonal_bottom_left()
         if keys[pygame.K_d]:
-            if not green_tank.rect.colliderect(left_rect):
-                green_tank.move_up()
+            if not collision_tank_green():
+                green_tank.move_up(False)
+            else:
+                green_tank.move_down(True)
         if keys[pygame.K_a]:
-            if not green_tank.rect.colliderect(right_rect):
-                green_tank.move_down()
+            if not collision_tank_green():
+                green_tank.move_down(False)
+            else:
+                green_tank.move_up(True)
         if keys[pygame.K_w]:
-            if not green_tank.rect.colliderect(top_rect):
-                green_tank.move_left()
+            if not collision_tank_green():
+                green_tank.move_left(False)
+            else:
+                green_tank.move_right(True)
         if keys[pygame.K_s]:
-            if not green_tank.rect.colliderect(bottom_rect):
-                green_tank.move_right()
+            if not collision_tank_green():
+                green_tank.move_right(False)
+            else:
+                green_tank.move_left(True)
         if keys[pygame.K_LEFT]:
-            if not blue_tank.rect.colliderect(right_rect):
-                blue_tank.move_up()
+            if not collision_tank_blue():
+                blue_tank.move_up(False)
+            else:
+                 blue_tank.move_down(True)
         if keys[pygame.K_RIGHT]:
-            if not blue_tank.rect.colliderect(left_rect):
-                blue_tank.move_down()
+             if not collision_tank_blue():
+                 blue_tank.move_down(False)
+             else:
+                blue_tank.move_up(True)
         if keys[pygame.K_UP]:
-            if not blue_tank.rect.colliderect(top_rect):
-                blue_tank.move_right()
+            if not collision_tank_blue():
+                blue_tank.move_right(False)
+            else:
+                blue_tank.move_left(True)
         if keys[pygame.K_DOWN]:
-            if not blue_tank.rect.colliderect(bottom_rect):
-                blue_tank.move_left()
+             if not collision_tank_blue():
+                 blue_tank.move_left(False)
+             else:
+                blue_tank.move_right(True)
         if keys[pygame.K_g] and not green_already_thrown:
             if new_green_shot.shot == False:
                 update_position_shot_green(True)
