@@ -98,6 +98,8 @@ class Game:
             global blue_shot_limiter, blue_already_thrown
             new_blue_shot.action_shoot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
                                        blue_tank.previous_x_speed, blue_tank.previous_y_speed, shot)
+            new_blue_shot.moving_left = False
+            new_blue_shot.moving_down = True
 
             blue_shot_limiter = 0
             blue_already_thrown = True
@@ -106,6 +108,8 @@ class Game:
             global green_shot_limiter, green_already_thrown
             new_green_shot.action_shoot(green_tank.rect.x + 22, green_tank.rect.y + 22,
                                        green_tank.previous_x_speed, green_tank.previous_y_speed, shot)
+            new_green_shot.moving_left = False
+            new_green_shot.moving_down = True
 
             green_shot_limiter = 0
             green_already_thrown = True
@@ -169,89 +173,181 @@ class Game:
         def collision_shots_blocks():
             #blue shot colide           
             if new_blue_shot.rect.colliderect(center_right_block.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
 
             if new_blue_shot.rect.colliderect(center_left_block.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
             
             if new_blue_shot.rect.colliderect(center_top_block.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
             
             if new_blue_shot.rect.colliderect(center_bottom_block.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
             
             if new_blue_shot.rect.colliderect(top_right_block.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
             
             if new_blue_shot.rect.colliderect(top_left_block.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
 
             if new_blue_shot.rect.colliderect(bottom_right_block.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
             
             if new_blue_shot.rect.colliderect(bottom_left_block.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
 
             if new_blue_shot.rect.colliderect(right_up_rectangle.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
 
             if new_blue_shot.rect.colliderect(right_down_rectangle.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
 
             if new_blue_shot.rect.colliderect(left_up_rectangle.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
 
             if new_blue_shot.rect.colliderect(left_down_rectangle.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
 
             if new_blue_shot.rect.colliderect(right_goal.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
 
             if new_blue_shot.rect.colliderect(left_goal.rect):
-                print("colidiu")
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
+
+            if new_blue_shot.rect.colliderect(right_rect):
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                return True
+            
+            if new_blue_shot.rect.colliderect(left_rect):
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                return True
+
+            if new_blue_shot.rect.colliderect(top_rect):
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
+
+            if new_blue_shot.rect.colliderect(bottom_rect):
+                new_blue_shot.moving_left = not new_blue_shot.moving_left 
+                new_blue_shot.moving_down = not new_blue_shot.moving_down
+                return True
 
             #gren shot colide           
             if new_green_shot.rect.colliderect(center_right_block.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
 
             if new_green_shot.rect.colliderect(center_left_block.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
             
             if new_green_shot.rect.colliderect(center_top_block.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
             
             if new_green_shot.rect.colliderect(center_bottom_block.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
             
             if new_green_shot.rect.colliderect(top_right_block.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
             
             if new_green_shot.rect.colliderect(top_left_block.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
 
             if new_green_shot.rect.colliderect(bottom_right_block.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
             
             if new_green_shot.rect.colliderect(bottom_left_block.rect):
-                print("colidiu")
+                return True
 
             if new_green_shot.rect.colliderect(right_up_rectangle.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
 
             if new_green_shot.rect.colliderect(right_down_rectangle.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
 
             if new_green_shot.rect.colliderect(left_up_rectangle.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
 
             if new_green_shot.rect.colliderect(left_down_rectangle.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
 
             if new_green_shot.rect.colliderect(right_goal.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
 
             if new_green_shot.rect.colliderect(left_goal.rect):
-                print("colidiu")
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
+            
+            if new_green_shot.rect.colliderect(right_rect):
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                return True
+            
+            if new_green_shot.rect.colliderect(left_rect):
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                return True
+
+            if new_green_shot.rect.colliderect(top_rect):
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
+
+            if new_green_shot.rect.colliderect(bottom_rect):
+                new_green_shot.moving_left = not new_green_shot.moving_left 
+                new_green_shot.moving_down = not new_green_shot.moving_down
+                return True
+
+            
 
         def collision_tank_blue():
             if blue_tank.rect.colliderect(center_right_block.rect):
@@ -437,6 +533,7 @@ class Game:
 
         collision_shots_tanks()
         collision_shots_blocks()
+            
 
         display_score(screen, Constant.SCORE_1_POS, 1, color_1)
         display_score(screen, Constant.SCORE_2_POS, 2, color_2)
