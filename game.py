@@ -154,13 +154,13 @@ class Game:
 
 
         def collision_shots_tanks():
-            if new_blue_shot.rect.colliderect(green_tank.rect):
+            if new_blue_shot.rect.colliderect(green_tank.rect) and new_blue_shot.shot == True:
                 kill_sound()
                 new_blue_shot.kill()
                 update_position_shot_blue(False)
                 update_score(2)
 
-            if new_green_shot.rect.colliderect(blue_tank.rect):
+            if new_green_shot.rect.colliderect(blue_tank.rect) and new_green_shot.shot == True:
                 kill_sound()
                 new_green_shot.kill()
                 update_position_shot_green(False)
