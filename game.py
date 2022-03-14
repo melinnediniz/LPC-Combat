@@ -4,7 +4,7 @@ from tanks import *
 from scenario import *
 from shots import *
 from config import *
-from config import Color, Constant, display_score, update_score, reset_score, move_tanks_sound
+from config import Color, Constant, display_score, update_score, reset_score, move_tanks_sound, start_text
 from config import timer, time_count, list_colors, time_color_count, color_1, color_2
 
 pygame.init()
@@ -87,7 +87,8 @@ class Game:
                 elif event.key == pygame.K_ESCAPE:
                     exit()
 
-        screen.fill(Color.GREEN)
+        screen.fill(Color.RED)
+        start_text(screen)
         pygame.display.flip()
 
     def main(self):
@@ -150,10 +151,10 @@ class Game:
                     exit()
                 elif event.key == pygame.K_r:
                     reset_score()
+                    green_already_thrown, blue_already_thrown = False, False
                     time_color_count = 0
                     time_count = 0
                     blue_tank.reset(), green_tank.reset()
-                    print(blue_tank.movement)
                     self.current_screen = "start"
 
 
@@ -163,12 +164,14 @@ class Game:
                 new_blue_shot.kill()
                 update_position_shot_blue(False)
                 update_score(2)
+                green_tank.randomize()
 
             if new_green_shot.rect.colliderect(blue_tank.rect) and new_green_shot.shot == True:
                 kill_sound()
                 new_green_shot.kill()
                 update_position_shot_green(False)
                 update_score(1)
+                blue_tank.randomize()
 
         def collision_shots_blocks():
             #blue shot colide           

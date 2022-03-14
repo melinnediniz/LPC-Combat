@@ -1,4 +1,5 @@
 from turtle import speed
+from random import randint
 from config import *
 import pygame
 
@@ -16,6 +17,12 @@ class BlueTank(pygame.sprite.Sprite):
     
     def lock(self):
         self.movement = False
+
+
+    def randomize(self):
+        self.rect = self.image.get_rect(center=(randint(100, 600), randint(250, 600)))
+        self.image = pygame.image.load(BLUE_TANK_SPRITE_UP)
+
 
     def reset(self):
         self.movement = True
@@ -145,6 +152,11 @@ class GreenTank(pygame.sprite.Sprite):
         self.movement = True
         self.image = pygame.image.load(GREEN_TANK_SPRITE_UP)
         self.rect = self.image.get_rect(center=(GREEN_TANK_X_POS, GREEN_TANK_Y_POS))
+
+
+    def randomize(self):
+        self.rect = self.image.get_rect(center=(randint(100, 600), randint(250, 600)))
+        self.image = pygame.image.load(GREEN_TANK_SPRITE_UP)
 
     def move_up(self, colide):
         if self.movement == True:
