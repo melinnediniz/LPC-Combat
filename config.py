@@ -111,7 +111,7 @@ class Constant:
     CLOCK = 60
     SCORE_1_POS = (280, 5)
     SCORE_2_POS = (800, 5)
-    GAME_TIME = 300
+    GAME_TIME = 41
     MIN_LIVES = 0
     icon = pygame.image.load('sprites/icon.png')
 
