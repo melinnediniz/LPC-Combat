@@ -146,10 +146,10 @@ class Game:
                     exit()
                 elif event.key == pygame.K_r:
                     reset_score()
+                    green_already_thrown, blue_already_thrown = False, False
                     time_color_count = 0
                     time_count = 0
                     blue_tank.reset(), green_tank.reset()
-                    print(blue_tank.movement)
                     self.current_screen = "start"
 
 
