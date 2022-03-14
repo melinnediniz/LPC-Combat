@@ -42,6 +42,8 @@ GREEN_SHOT_SPRITE = 'sprites/green_shot.png'
 GREEN_SHOT_X_POS = 150
 GREEN_SHOT_Y_POS = 396
 
+TIME_SHOT = 2
+
 
 '''BLUE_SHOT_SPRITE = 'sprites/blue_shot.png'
 BLUE_SHOT_X_POS = 
@@ -99,6 +101,8 @@ class Sounds:
     throw_ball = pygame.mixer.Sound('sound/shot.ogg')
     move_tank = pygame.mixer.Sound("sound/move.ogg")
     flip_tank = pygame.mixer.Sound("sound/flip.wav")
+    kill = pygame.mixer.Sound("sound/kill.wav")
+
 
 
 class Constant:
@@ -149,6 +153,7 @@ pygame.time.set_timer(timer, 1000)
 pygame.mixer.init(frequency = 44100, size = -16, channels = 2, buffer = 512)
 green_tank_channel = pygame.mixer.Channel(0)
 blue_tank_channel = pygame.mixer.Channel(1)
+kill_channel = pygame.mixer.Channel(2)
 
 
 def move_tanks_sound():
@@ -168,6 +173,15 @@ def move_tanks_sound():
     elif blue_tank_channel.get_busy():
         if not key[pygame.K_LEFT] and (not key[pygame.K_RIGHT]) and (not key[pygame.K_UP]) and (not key[pygame.K_DOWN]):
             blue_tank_channel.stop()
+
+def kill_sound():
+    global kill_channel
+    kill_channel.set_volume(0.3)
+    
+    if not kill_channel.get_busy():
+        kill_channel.play(Sounds.kill)
+    elif kill_channel.get_busy():
+        kill_channel.stop()
 
                 
 def display_score(surf, position, score, color):
