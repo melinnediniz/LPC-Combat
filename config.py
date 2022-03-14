@@ -107,6 +107,7 @@ class Sounds:
 
 class Constant:
     FONT = "fonts/Megafont.ttf"
+    FONT_2 = "fonts/G7StarForce.ttf"
     SCREEN_DIMENSIONS = (1022, 738)
     CLOCK = 60
     SCORE_1_POS = (280, 5)
@@ -142,6 +143,8 @@ color_2 = Color.BLUE
 
 # ------- GLOBAL FUNCTIONS
 font = pygame.font.Font(Constant.FONT, 60)
+font_start = pygame.font.Font(Constant.FONT, 120)
+font_msg = pygame.font.Font(Constant.FONT_2, 22)
 
 # time event
 time_count = 0
@@ -154,6 +157,18 @@ pygame.mixer.init(frequency = 44100, size = -16, channels = 2, buffer = 512)
 green_tank_channel = pygame.mixer.Channel(0)
 blue_tank_channel = pygame.mixer.Channel(1)
 kill_channel = pygame.mixer.Channel(2)
+
+def start_text(surf):
+    combat_surf = font_start.render('COMBAT', True, Color.YELLOW)
+    combat_rect = combat_surf.get_rect(topleft=(215, 245))
+    bg_surf = font_start.render('COMBAT', True, Color.BLACK)
+    bg_rect = bg_surf.get_rect(topleft=(220, 250))
+    surf.blit(bg_surf, bg_rect)
+    surf.blit(combat_surf, combat_rect)
+
+    press_surf = font_msg.render('PRESS "SPACE" TO PLAY', True, Color.BLACK)
+    press_rect = press_surf.get_rect(topleft=(295, 560))
+    surf.blit(press_surf, press_rect)
 
 
 def move_tanks_sound():
