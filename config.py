@@ -188,7 +188,7 @@ def move_tanks_sound():
 
 def kill_sound():
     global kill_channel
-    kill_channel.set_volume(0.5)
+    kill_channel.set_volume(0.3)
     
     if not kill_channel.get_busy():
         kill_channel.play(Sounds.kill)

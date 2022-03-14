@@ -152,17 +152,18 @@ class Game:
 
 
         def collision_shots_tanks():
-            global score_1
             if new_blue_shot.rect.colliderect(green_tank.rect):
                 kill_sound()
                 new_blue_shot.kill()
                 update_position_shot_blue(False)
+                update_score(2)
 
             if new_green_shot.rect.colliderect(blue_tank.rect):
                 kill_sound()
                 new_green_shot.kill()
                 update_position_shot_green(False)
-        
+                update_score(1)
+
         def collision_shots_blocks():
             #blue shot colide           
             if new_blue_shot.rect.colliderect(center_right_block.rect):
