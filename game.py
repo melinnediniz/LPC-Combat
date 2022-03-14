@@ -160,12 +160,14 @@ class Game:
                 new_blue_shot.kill()
                 update_position_shot_blue(False)
                 update_score(2)
+                green_tank.randomize()
 
             if new_green_shot.rect.colliderect(blue_tank.rect) and new_green_shot.shot == True:
                 kill_sound()
                 new_green_shot.kill()
                 update_position_shot_green(False)
                 update_score(1)
+                blue_tank.randomize()
 
         def collision_shots_blocks():
             #blue shot colide           
