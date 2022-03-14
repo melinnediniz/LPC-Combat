@@ -92,10 +92,34 @@ class Game:
     def main(self):
         global green_already_thrown, blue_already_thrown, green_shot_limiter, blue_shot_limiter
         global time_color_count, color_1, color_2, time_count, score_1, score_2
+
+        def update_position_shot_blue(shot):
+            global blue_shot_limiter, blue_already_thrown
+            new_blue_shot.action_shoot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
+                                       blue_tank.previous_x_speed, blue_tank.previous_y_speed, shot)
+
+            blue_shot_limiter = 0
+            blue_already_thrown = True
+
+        def update_position_shot_green(shot):
+            global green_shot_limiter, green_already_thrown
+            new_green_shot.action_shoot(green_tank.rect.x + 22, green_tank.rect.y + 22,
+                                       green_tank.previous_x_speed, green_tank.previous_y_speed, shot)
+
+            green_shot_limiter = 0
+            green_already_thrown = True
+            
         for event in pygame.event.get():
             if event.type == timer:
                 time_count += 1
                 time_color_count += 1
+                new_blue_shot.update_time(1)
+                new_green_shot.update_time(1)
+                if new_blue_shot.time == TIME_SHOT:
+                    update_position_shot_blue(True)
+                if new_green_shot.time == TIME_SHOT:
+                    update_position_shot_green(True)
+
                 print(f"T {time_count}")
                 if time_count > Constant.GAME_TIME:
                     if time_count == Constant.GAME_TIME + 5:
@@ -126,23 +150,9 @@ class Game:
                     print(blue_tank.movement)
                     self.current_screen = "start"
 
-        def update_position_shot_blue(shot):
-            global blue_shot_limiter, blue_already_thrown
-            new_blue_shot.action_shoot(blue_tank.rect.x + 22, blue_tank.rect.y + 22,
-                                       blue_tank.previous_x_speed, blue_tank.previous_y_speed, shot)
-
-            blue_shot_limiter = 0
-            blue_already_thrown = True
-
-        def update_position_shot_green(shot):
-            global blue_shot_limiter, blue_already_thrown
-            new_green_shot.action_shoot(green_tank.rect.x + 22, green_tank.rect.y + 22,
-                                       green_tank.previous_x_speed, green_tank.previous_y_speed, shot)
-
-            blue_shot_limiter = 0
-            blue_already_thrown = True
 
         def collision_shots_tanks():
+            global score_1
             if new_blue_shot.rect.colliderect(green_tank.rect):
                 kill_sound()
                 new_blue_shot.kill()
@@ -154,11 +164,91 @@ class Game:
                 update_position_shot_green(False)
         
         def collision_shots_blocks():
-            #center_left_block center_top_block center_bottom_block  top_right_block top_left_block bottom_right_block bottom_left_block right_up_rectangle
+            #blue shot colide           
             if new_blue_shot.rect.colliderect(center_right_block.rect):
                 print("colidiu")
 
-            #if new_green_shot.rect.colliderect(green_tank.rect):
+            if new_blue_shot.rect.colliderect(center_left_block.rect):
+                print("colidiu")
+            
+            if new_blue_shot.rect.colliderect(center_top_block.rect):
+                print("colidiu")
+            
+            if new_blue_shot.rect.colliderect(center_bottom_block.rect):
+                print("colidiu")
+            
+            if new_blue_shot.rect.colliderect(top_right_block.rect):
+                print("colidiu")
+            
+            if new_blue_shot.rect.colliderect(top_left_block.rect):
+                print("colidiu")
+
+            if new_blue_shot.rect.colliderect(bottom_right_block.rect):
+                print("colidiu")
+            
+            if new_blue_shot.rect.colliderect(bottom_left_block.rect):
+                print("colidiu")
+
+            if new_blue_shot.rect.colliderect(right_up_rectangle.rect):
+                print("colidiu")
+
+            if new_blue_shot.rect.colliderect(right_down_rectangle.rect):
+                print("colidiu")
+
+            if new_blue_shot.rect.colliderect(left_up_rectangle.rect):
+                print("colidiu")
+
+            if new_blue_shot.rect.colliderect(left_down_rectangle.rect):
+                print("colidiu")
+
+            if new_blue_shot.rect.colliderect(right_goal.rect):
+                print("colidiu")
+
+            if new_blue_shot.rect.colliderect(left_goal.rect):
+                print("colidiu")
+
+            #gren shot colide           
+            if new_green_shot.rect.colliderect(center_right_block.rect):
+                print("colidiu")
+
+            if new_green_shot.rect.colliderect(center_left_block.rect):
+                print("colidiu")
+            
+            if new_green_shot.rect.colliderect(center_top_block.rect):
+                print("colidiu")
+            
+            if new_green_shot.rect.colliderect(center_bottom_block.rect):
+                print("colidiu")
+            
+            if new_green_shot.rect.colliderect(top_right_block.rect):
+                print("colidiu")
+            
+            if new_green_shot.rect.colliderect(top_left_block.rect):
+                print("colidiu")
+
+            if new_green_shot.rect.colliderect(bottom_right_block.rect):
+                print("colidiu")
+            
+            if new_green_shot.rect.colliderect(bottom_left_block.rect):
+                print("colidiu")
+
+            if new_green_shot.rect.colliderect(right_up_rectangle.rect):
+                print("colidiu")
+
+            if new_green_shot.rect.colliderect(right_down_rectangle.rect):
+                print("colidiu")
+
+            if new_green_shot.rect.colliderect(left_up_rectangle.rect):
+                print("colidiu")
+
+            if new_green_shot.rect.colliderect(left_down_rectangle.rect):
+                print("colidiu")
+
+            if new_green_shot.rect.colliderect(right_goal.rect):
+                print("colidiu")
+
+            if new_green_shot.rect.colliderect(left_goal.rect):
+                print("colidiu")
 
 
         keys = pygame.key.get_pressed()
@@ -203,11 +293,13 @@ class Game:
             if not blue_tank.rect.colliderect(bottom_rect):
                 blue_tank.move_left()
         if keys[pygame.K_g] and not green_already_thrown:
-            update_position_shot_green(True)
-            all_sprites.add(new_green_shot)
+            if new_green_shot.shot == False:
+                update_position_shot_green(True)
+                all_sprites.add(new_green_shot)
         if keys[pygame.K_l] and not blue_already_thrown:
-            update_position_shot_blue(True)
-            all_sprites.add(new_blue_shot)
+            if new_blue_shot.shot == False:
+                update_position_shot_blue(True)
+                all_sprites.add(new_blue_shot)
 
         if time_count < Constant.GAME_TIME:
             move_tanks_sound()

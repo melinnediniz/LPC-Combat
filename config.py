@@ -42,6 +42,8 @@ GREEN_SHOT_SPRITE = 'sprites/green_shot.png'
 GREEN_SHOT_X_POS = 150
 GREEN_SHOT_Y_POS = 396
 
+TIME_SHOT = 2
+
 
 '''BLUE_SHOT_SPRITE = 'sprites/blue_shot.png'
 BLUE_SHOT_X_POS = 
