@@ -11,11 +11,21 @@ class BlueShot(pygame.sprite.Sprite):
         self.y_speed = y_speed
         self.shot = False
         self.time = 0
+        self.moving_left  = False
+        self.moving_down = True
 
     def update(self):
         if self.shot == True:
-            self.rect.x += self.x_speed
-            self.rect.y += self.y_speed
+            if self.moving_left:
+                self.rect.x -= self.x_speed
+            else:
+                self.rect.x += self.x_speed
+
+            if self.moving_down:
+                self.rect.y += self.y_speed
+            else:
+                self.rect.y -= self.y_speed
+
             if self.time == TIME_SHOT:
                 self.shot = False
                 self.time = 0
@@ -41,11 +51,21 @@ class GreenShot(pygame.sprite.Sprite):
         self.y_speed = y_speed
         self.shot = False
         self.time = 0
+        self.moving_left  = False
+        self.moving_down = True
 
     def update(self):
         if self.shot == True:
-            self.rect.x += self.x_speed
-            self.rect.y += self.y_speed
+            if self.moving_left:
+                self.rect.x -= self.x_speed
+            else:
+                self.rect.x += self.x_speed
+
+            if self.moving_down:
+                self.rect.y += self.y_speed
+            else:
+                self.rect.y -= self.y_speed
+
             if self.time == TIME_SHOT:
                 self.shot = False
                 self.time = 0
