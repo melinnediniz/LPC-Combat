@@ -1,5 +1,5 @@
 from tanks import *
-from scenario import *
+from obstacle import Obstacle
 from shots import *
 
 pygame.init()
@@ -9,20 +9,9 @@ pygame.display.set_caption("TANK PONG")
 all_sprites = pygame.sprite.Group()
 blue_tank = BlueTank()
 green_tank = GreenTank()
-center_right_block = CenterBlock(CENTER_RIGHT_BLOCK_X_POS, CENTER_RIGHT_BLOCK_Y_POS)
-center_left_block = CenterBlock(CENTER_LEFT_BLOCK_X_POS, CENTER_LEFT_BLOCK_Y_POS)
-center_top_block = CenterBlock(CENTER_TOP_BLOCK_X_POS, CENTER_TOP_BLOCK_Y_POS)
-center_bottom_block = CenterBlock(CENTER_BOTTOM_BLOCK_X_POS, CENTER_BOTTOM_BLOCK_Y_POS)
-top_right_block = Block(BLOCK_TOP_RIGHT_X_POS, BLOCK_TOP_RIGHT_Y_POS)
-top_left_block = Block(BLOCK_TOP_LEFT_X_POS, BLOCK_TOP_LEFT_Y_POS)
-bottom_right_block = Block(BLOCK_BOTTOM_RIGHT_X_POS, BLOCK_BOTTOM_RIGHT_Y_POS)
-bottom_left_block = Block(BLOCK_BOTTOM_LEFT_X_POS, BLOCK_BOTTOM_LEFT_Y_POS)
-right_up_rectangle = RightUpRectangle(RIGHT_UP_RECTANGLE_X_POS, RIGHT_UP_RECTANGLE_Y_POS)
-right_down_rectangle = RightDownRectangle(RIGHT_DOWN_RECTANGLE_X_POS, RIGHT_DOWN_RECTANGLE_Y_POS)
-left_up_rectangle = LeftUpRectangle(LEFT_UP_RECTANGLE_X_POS, LEFT_UP_RECTANGLE_Y_POS)
-left_down_rectangle = LeftDownRectangle(LEFT_DOWN_RECTANGLE_X_POS, LEFT_DOWN_RECTANGLE_Y_POS)
-right_goal = RightGoal(RIGHT_GOAL_X_POS, RIGHT_GOAL_Y_POS)
-left_goal = LeftGoal(LEFT_GOAL_X_POS, LEFT_GOAL_Y_POS)
+obstacles = []
+for sprite, pos in OBSTACLES.items():
+    obstacles.append(Obstacle(sprite, pos[0], pos[1]))
 top_rect = pygame.Rect(TOP_AND_BOTTOM_RECT_X_POS, TOP_RECT_Y_POS, TOP_AND_BOTTOM_RECT_WIDTH, TOP_AND_BOTTOM_RECT_HEIGHT)
 bottom_rect = pygame.Rect(TOP_AND_BOTTOM_RECT_X_POS, BOTTOM_RECT_Y_POS, TOP_AND_BOTTOM_RECT_WIDTH,
                           TOP_AND_BOTTOM_RECT_HEIGHT)
@@ -32,20 +21,7 @@ left_rect = pygame.Rect(LEFT_RECT_X_POS, RIGHT_AND_LEFT_RECT_Y_POS, RIGHT_AND_LE
                         RIGHT_AND_LEFT_RECT_HEIGHT)
 all_sprites.add(blue_tank)
 all_sprites.add(green_tank)
-all_sprites.add(center_right_block)
-all_sprites.add(center_left_block)
-all_sprites.add(center_top_block)
-all_sprites.add(center_bottom_block)
-all_sprites.add(top_right_block)
-all_sprites.add(top_left_block)
-all_sprites.add(bottom_right_block)
-all_sprites.add(bottom_left_block)
-all_sprites.add(right_up_rectangle)
-all_sprites.add(right_down_rectangle)
-all_sprites.add(left_up_rectangle)
-all_sprites.add(left_down_rectangle)
-all_sprites.add(right_goal)
-all_sprites.add(left_goal)
+all_sprites.add(obstacles)
 
 green_already_thrown = False
 blue_already_thrown = False

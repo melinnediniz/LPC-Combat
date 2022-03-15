@@ -32,58 +32,14 @@ GREEN_SHOT_SPRITE = 'sprites/green_shot.png'
 GREEN_SHOT_X_POS = 150
 GREEN_SHOT_Y_POS = 396
 
-
-'''BLUE_SHOT_SPRITE = 'sprites/blue_shot.png'
-BLUE_SHOT_X_POS = 
-BLUE_SHOT_Y_POS = 
-
-GREEN_SHOT_SPRITE = 'sprites/green_shot.png'
-GREEN_SHOT_X_POS = 
-GREEN_SHOT_Y_POS = '''
-
-CENTER_BLOCK_SPRITE = 'sprites/center_block.png'
-CENTER_RIGHT_BLOCK_X_POS = 740
-CENTER_RIGHT_BLOCK_Y_POS = 396
-CENTER_LEFT_BLOCK_X_POS = 276
-CENTER_LEFT_BLOCK_Y_POS = 396
-CENTER_TOP_BLOCK_X_POS = 509
-CENTER_TOP_BLOCK_Y_POS = 116
-CENTER_BOTTOM_BLOCK_X_POS = 509
-CENTER_BOTTOM_BLOCK_Y_POS = 680
-
-BLOCK_SPRITE = 'sprites/block.png'
-BLOCK_TOP_RIGHT_X_POS = 831
-BLOCK_TOP_RIGHT_Y_POS = 186
-BLOCK_TOP_LEFT_X_POS = 189
-BLOCK_TOP_LEFT_Y_POS = 186
-BLOCK_BOTTOM_RIGHT_X_POS = 831
-BLOCK_BOTTOM_RIGHT_Y_POS = 613
-BLOCK_BOTTOM_LEFT_X_POS = 189
-BLOCK_BOTTOM_LEFT_Y_POS = 613
-
-RIGHT_UP_RECTANGLE_SPRITE = 'sprites/right_up_rectangle.png'
-RIGHT_UP_RECTANGLE_X_POS = 614
-RIGHT_UP_RECTANGLE_Y_POS = 250
-
-RIGHT_DOWN_RECTANGLE_SPRITE = 'sprites/right_down_rectangle.png'
-RIGHT_DOWN_RECTANGLE_X_POS = 614
-RIGHT_DOWN_RECTANGLE_Y_POS = 549
-
-LEFT_UP_RECTANGLE_SPRITE = 'sprites/left_up_rectangle.png'
-LEFT_UP_RECTANGLE_X_POS = 400
-LEFT_UP_RECTANGLE_Y_POS = 250
-
-LEFT_DOWN_RECTANGLE_SPRITE = 'sprites/left_down_rectangle.png'
-LEFT_DOWN_RECTANGLE_X_POS = 400
-LEFT_DOWN_RECTANGLE_Y_POS = 549
-
-RIGHT_GOAL_SPRITE = 'sprites/right_goal.png'
-RIGHT_GOAL_X_POS = 856
-RIGHT_GOAL_Y_POS = 396
-
-LEFT_GOAL_SPRITE = 'sprites/left_goal.png'
-LEFT_GOAL_X_POS = 164
-LEFT_GOAL_Y_POS = 396
+# obstacle image file path: obstacle (x, y) positions
+OBSTACLES = {'sprites/right_block.png': (740, 396), 'sprites/left_block.png': (276, 396),
+             'sprites/top_block.png': (509, 116), 'sprites/bottom_block.png': (509, 680),
+             'sprites/top_right_rectangle.png': (831, 186), 'sprites/top_left_rectangle.png': (189, 186),
+             'sprites/bottom_right_rectangle.png': (831, 613), 'sprites/bottom_left_rectangle.png': (189, 613),
+             'sprites/top_right_stick.png': (614, 250), 'sprites/bottom_right_stick.png': (614, 549),
+             'sprites/top_left_stick.png': (400, 250), 'sprites/bottom_left_stick.png': (400, 549),
+             'sprites/right_goal.png': (856, 396), 'sprites/left_goal.png': (164, 396)}
 
 
 class Sounds:
@@ -115,7 +71,6 @@ class Color:
 game_loop = True
 score_1 = 0
 score_2 = 0
-
 
 # ------- GLOBAL FUNCTIONS
 pygame.init()
@@ -157,5 +112,5 @@ def winner():
         winner = 'DRAW'
     else:
         winner = 'PLAYER 1 WON'
-    
+
     return winner
