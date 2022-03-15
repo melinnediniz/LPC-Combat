@@ -2,17 +2,6 @@ import pygame
 
 TICK_SHOT_LIMITER = 15
 
-TOP_AND_BOTTOM_RECT_WIDTH = 1022
-TOP_AND_BOTTOM_RECT_HEIGHT = 40
-RIGHT_AND_LEFT_RECT_WIDTH = 40
-RIGHT_AND_LEFT_RECT_HEIGHT = 700
-TOP_AND_BOTTOM_RECT_X_POS = 0
-TOP_RECT_Y_POS = 55
-BOTTOM_RECT_Y_POS = 698
-RIGHT_RECT_X_POS = 0
-LEFT_RECT_X_POS = 982
-RIGHT_AND_LEFT_RECT_Y_POS = 55
-
 BLUE_TANK_SPRITE_SHEET = []
 for i in range(0, 360, 15):
     BLUE_TANK_SPRITE_SHEET.append(pygame.image.load(f'sprites/blue_tank/{i}.png'))
@@ -39,7 +28,9 @@ OBSTACLES = {'sprites/right_block.png': (740, 396), 'sprites/left_block.png': (2
              'sprites/bottom_right_rectangle.png': (831, 613), 'sprites/bottom_left_rectangle.png': (189, 613),
              'sprites/top_right_stick.png': (614, 250), 'sprites/bottom_right_stick.png': (614, 549),
              'sprites/top_left_stick.png': (400, 250), 'sprites/bottom_left_stick.png': (400, 549),
-             'sprites/right_goal.png': (856, 396), 'sprites/left_goal.png': (164, 396)}
+             'sprites/right_goal.png': (856, 396), 'sprites/left_goal.png': (164, 396),
+             'sprites/top_wall.png': (510, 73), 'sprites/bottom_wall.png': (510, 723),
+             'sprites/right_wall.png': (20, 410), 'sprites/left_wall.png': (1002, 410)}
 
 
 class Sounds:

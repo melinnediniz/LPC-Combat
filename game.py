@@ -12,13 +12,6 @@ green_tank = GreenTank()
 obstacles = []
 for sprite, pos in OBSTACLES.items():
     obstacles.append(Obstacle(sprite, pos[0], pos[1]))
-top_rect = pygame.Rect(TOP_AND_BOTTOM_RECT_X_POS, TOP_RECT_Y_POS, TOP_AND_BOTTOM_RECT_WIDTH, TOP_AND_BOTTOM_RECT_HEIGHT)
-bottom_rect = pygame.Rect(TOP_AND_BOTTOM_RECT_X_POS, BOTTOM_RECT_Y_POS, TOP_AND_BOTTOM_RECT_WIDTH,
-                          TOP_AND_BOTTOM_RECT_HEIGHT)
-right_rect = pygame.Rect(RIGHT_RECT_X_POS, RIGHT_AND_LEFT_RECT_Y_POS, RIGHT_AND_LEFT_RECT_WIDTH,
-                         RIGHT_AND_LEFT_RECT_HEIGHT)
-left_rect = pygame.Rect(LEFT_RECT_X_POS, RIGHT_AND_LEFT_RECT_Y_POS, RIGHT_AND_LEFT_RECT_WIDTH,
-                        RIGHT_AND_LEFT_RECT_HEIGHT)
 all_sprites.add(blue_tank)
 all_sprites.add(green_tank)
 all_sprites.add(obstacles)
@@ -126,10 +119,6 @@ class Game:
         display_score(screen, Constant.SCORE_2_POS, 2)
         all_sprites.update()
         all_sprites.draw(screen)
-        pygame.draw.rect(screen, Color().YELLOW, top_rect)
-        pygame.draw.rect(screen, Color().YELLOW, bottom_rect)
-        pygame.draw.rect(screen, Color().YELLOW, right_rect)
-        pygame.draw.rect(screen, Color().YELLOW, left_rect)
         pygame.display.update()
         if green_shot_limiter == TICK_SHOT_LIMITER:
             green_already_thrown = False
