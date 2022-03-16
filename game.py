@@ -1,14 +1,15 @@
-from tanks import *
+from tank import Tank
 from obstacle import Obstacle
 from shots import *
+from config import *
 
 pygame.init()
 screen = pygame.display.set_mode(Constant.SCREEN_DIMENSIONS)
 pygame.display.set_caption("TANK PONG")
 
 all_sprites = pygame.sprite.Group()
-blue_tank = BlueTank()
-green_tank = GreenTank()
+blue_tank = Tank(BLUE_TANK_SPRITE_SHEET, BLUE_TANK_X_POS, BLUE_TANK_Y_POS, 'red')
+green_tank = Tank(GREEN_TANK_SPRITE_SHEET, GREEN_TANK_X_POS, GREEN_TANK_Y_POS, 'green')
 obstacles = []
 for sprite, pos in OBSTACLES.items():
     obstacles.append(Obstacle(sprite, pos[0], pos[1]))
