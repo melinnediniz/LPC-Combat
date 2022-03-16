@@ -10,33 +10,34 @@ pygame.init()
 screen = pygame.display.set_mode(Constant['SCREEN_DIMENSION'])
 pygame.display.set_caption("TANK PONG")
 
-score = Score(screen)
-sound = Sound()
-
-all_sprites = pygame.sprite.Group()
-blue_tank = Tank(BLUE_TANK_SPRITE_SHEET, BLUE_TANK_X_POS, BLUE_TANK_Y_POS, 'red')
-green_tank = Tank(GREEN_TANK_SPRITE_SHEET, GREEN_TANK_X_POS, GREEN_TANK_Y_POS, 'green')
-obstacles = []
-for sprite, pos in OBSTACLES.items():
-    obstacles.append(Obstacle(sprite, pos[0], pos[1]))
-all_sprites.add(blue_tank)
-all_sprites.add(green_tank)
-all_sprites.add(obstacles)
-
-green_already_thrown = False
-blue_already_thrown = False
-green_shot_limiter = TICK_SHOT_LIMITER
-blue_shot_limiter = TICK_SHOT_LIMITER
-
-green_tank_angle = 0
-blue_tank_angle = 0
-green_tank_sprite_change_limiter = 5
-blue_tank_sprite_change_limiter = 5
 
 
 class Game:
     def __init__(self):
         self.current_screen = "start"
+        self.score = Score(screen)
+        self.sound = Sound()
+
+        self.all_sprites = pygame.sprite.Group()
+        self.blue_tank = Tank(BLUE_TANK_SPRITE_SHEET, BLUE_TANK_X_POS, BLUE_TANK_Y_POS, 'red')
+        self.green_tank = Tank(GREEN_TANK_SPRITE_SHEET, GREEN_TANK_X_POS, GREEN_TANK_Y_POS, 'green')
+        self.obstacles = []
+        for sprite, pos in OBSTACLES.items():
+            self.obstacles.append(Obstacle(sprite, pos[0], pos[1]))
+        self.all_sprites.add(self.blue_tank)
+        self.all_sprites.add(self.green_tank)
+        self.all_sprites.add(self.obstacles)
+
+        self.green_already_thrown = False
+        self.blue_already_thrown = False
+        self.green_shot_limiter = TICK_SHOT_LIMITER
+        self.blue_shot_limiter = TICK_SHOT_LIMITER
+
+        self.green_tank_angle = 0
+        self.blue_tank_angle = 0
+        self.green_tank_sprite_change_limiter = 5
+        self.blue_tank_sprite_change_limiter = 5
+
 
     def start(self):
         for event in pygame.event.get():
@@ -53,9 +54,7 @@ class Game:
         pygame.display.flip()
 
     def main(self):
-        global green_already_thrown, blue_already_thrown, green_shot_limiter, blue_shot_limiter, green_tank_angle, \
-            blue_tank_angle, green_tank_sprite_change_limiter, blue_tank_sprite_change_limiter, \
-            timer_event, time_color_count, time_count
+        global timer_event, time_color_count, time_count
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -71,16 +70,16 @@ class Game:
                     elif time_count > Constant['GAME_TIME'] + 10:
                         screen.fill(random.choice(list_of_colors))
                         time_count = Constant['GAME_TIME'] + 5
-                
-                if time_color_count > Constant['GAME_TIME'] - 14:
+                if time_count < Constant['GAME_TIME']:
+                    if time_color_count > Constant['GAME_TIME'] - 14:
                         if time_color_count == Constant['GAME_TIME'] - 13:
-                            score.color_1, score.color_2 = Color['GREEN'], Color['BLUE']
+                            self.score.color_1, self.score.color_2 = Color['GREEN'], Color['BLUE']
                         elif time_color_count == Constant['GAME_TIME'] - 11: 
-                            score.color_1, score.color_2 = Color['RED'], Color['RED']  
+                            self.score.color_1, self.score.color_2 = Color['RED'], Color['RED']  
                             time_color_count = Constant['GAME_TIME'] - 14
                 if time_count > Constant['GAME_TIME'] - 1:
-                    green_tank.lock(), blue_tank.lock()
-                    blue_already_thrown, green_already_thrown = True, True
+                    self.green_tank.lock(), self.blue_tank.lock()
+                    self.blue_already_thrown, self.green_already_thrown = True, True
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
@@ -90,76 +89,76 @@ class Game:
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
-            green_tank.move_up(green_tank_angle)
+            self.green_tank.move_up(self.green_tank_angle)
         if keys[pygame.K_a]:
-            green_tank.move_down(green_tank_angle)
+            self.green_tank.move_down(self.green_tank_angle)
         if keys[pygame.K_w]:
-            if green_tank_sprite_change_limiter == 5:
-                if green_tank_angle == 0:
-                    green_tank_angle = 22
+            if self.green_tank_sprite_change_limiter == 5:
+                if self.green_tank_angle == 0:
+                    self.green_tank_angle = 22
                 else:
-                    green_tank_angle -= 1
-                green_tank.move_left(green_tank_angle)
-                green_tank_sprite_change_limiter = 0
-            green_tank_sprite_change_limiter += 1
+                    self.green_tank_angle -= 1
+                self.green_tank.move_left(self.green_tank_angle)
+                self.green_tank_sprite_change_limiter = 0
+            self.green_tank_sprite_change_limiter += 1
         if keys[pygame.K_s]:
-            if green_tank_sprite_change_limiter == 5:
-                if green_tank_angle == 23:
-                    green_tank_angle = 1
+            if self.green_tank_sprite_change_limiter == 5:
+                if self.green_tank_angle == 23:
+                    self.green_tank_angle = 1
                 else:
-                    green_tank_angle += 1
-                green_tank.move_right(green_tank_angle)
-                green_tank_sprite_change_limiter = 0
-            green_tank_sprite_change_limiter += 1
+                    self.green_tank_angle += 1
+                self.green_tank.move_right(self.green_tank_angle)
+                self.green_tank_sprite_change_limiter = 0
+            self.green_tank_sprite_change_limiter += 1
         if keys[pygame.K_LEFT]:
-            blue_tank.move_up(blue_tank_angle)
+            self.blue_tank.move_up(self.blue_tank_angle)
         if keys[pygame.K_RIGHT]:
-            blue_tank.move_down(blue_tank_angle)
+            self.blue_tank.move_down(self.blue_tank_angle)
         if keys[pygame.K_UP]:
-            if blue_tank_sprite_change_limiter == 5:
-                if blue_tank_angle == 23:
-                    blue_tank_angle = 1
+            if self.blue_tank_sprite_change_limiter == 5:
+                if self.blue_tank_angle == 23:
+                    self.blue_tank_angle = 1
                 else:
-                    blue_tank_angle += 1
-                blue_tank.move_right(blue_tank_angle)
-                blue_tank_sprite_change_limiter = 0
-            blue_tank_sprite_change_limiter += 1
+                    self.blue_tank_angle += 1
+                self.blue_tank.move_right(self.blue_tank_angle)
+                self.blue_tank_sprite_change_limiter = 0
+            self.blue_tank_sprite_change_limiter += 1
         if keys[pygame.K_DOWN]:
-            if blue_tank_sprite_change_limiter == 5:
-                if blue_tank_angle == 0:
-                    blue_tank_angle = 22
+            if self.blue_tank_sprite_change_limiter == 5:
+                if self.blue_tank_angle == 0:
+                    self.blue_tank_angle = 22
                 else:
-                    blue_tank_angle -= 1
-                blue_tank.move_left(blue_tank_angle)
-                blue_tank_sprite_change_limiter = 0
-            blue_tank_sprite_change_limiter += 1
-        if keys[pygame.K_g] and not green_already_thrown:
-            new_green_shot = Shot(GREEN_SHOT_SPRITE, green_tank.rect.center, green_tank.shot_x_speed,
-                                  green_tank.shot_y_speed)
-            all_sprites.add(new_green_shot)
-            green_shot_limiter = 0
-            green_already_thrown = True
-        if keys[pygame.K_l] and not blue_already_thrown:
-            new_blue_shot = Shot(BLUE_SHOT_SPRITE, blue_tank.rect.center, blue_tank.shot_x_speed,
-                                 blue_tank.shot_y_speed)
-            all_sprites.add(new_blue_shot)
-            blue_shot_limiter = 0
-            blue_already_thrown = True
+                    self.blue_tank_angle -= 1
+                self.blue_tank.move_left(self.blue_tank_angle)
+                self.blue_tank_sprite_change_limiter = 0
+            self.blue_tank_sprite_change_limiter += 1
+        if keys[pygame.K_g] and not self.green_already_thrown:
+            self.new_green_shot = Shot(GREEN_SHOT_SPRITE, self.green_tank.rect.center, self.green_tank.shot_x_speed,
+                                  self.green_tank.shot_y_speed)
+            self.all_sprites.add(self.new_green_shot)
+            self.green_shot_limiter = 0
+            self.green_already_thrown = True
+        if keys[pygame.K_l] and not self.blue_already_thrown:
+            self.new_blue_shot = Shot(BLUE_SHOT_SPRITE, self.blue_tank.rect.center, self.blue_tank.shot_x_speed,
+                                 self.blue_tank.shot_y_speed)
+            self.all_sprites.add(self.new_blue_shot)
+            self.blue_shot_limiter = 0
+            self.blue_already_thrown = True
 
         if time_count < Constant['GAME_TIME']:
             screen.fill(Color['RED'])
-            sound.play_move(), sound.play_shot()
-        score.display(Constant['SCORE_1_POS'], 1, score.color_1)
-        score.display(Constant['SCORE_2_POS'], 2, score.color_2)
-        all_sprites.update()
-        all_sprites.draw(screen)
+            self.sound.play_move(), self.sound.play_shot()
+        self.score.display(Constant['SCORE_1_POS'], 1, self.score.color_1)
+        self.score.display(Constant['SCORE_2_POS'], 2, self.score.color_2)
+        self.all_sprites.update()
+        self.all_sprites.draw(screen)
         pygame.display.update()
-        if green_shot_limiter == TICK_SHOT_LIMITER:
-            green_already_thrown = False
-        if blue_shot_limiter == TICK_SHOT_LIMITER:
-            blue_already_thrown = False
-        green_shot_limiter += 1
-        blue_shot_limiter += 1
+        if self.green_shot_limiter == TICK_SHOT_LIMITER:
+            self.green_already_thrown = False
+        if self.blue_shot_limiter == TICK_SHOT_LIMITER:
+            self.blue_already_thrown = False
+        self.green_shot_limiter += 1
+        self.blue_shot_limiter += 1
 
     def change_screen(self):
         if self.current_screen == "start":

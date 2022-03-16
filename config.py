@@ -26,7 +26,7 @@ Constant = {
     "CLOCK": 60,
     "SCORE_1_POS": (250, 5),
     "SCORE_2_POS": (780, 5),
-    "GAME_TIME": 61
+    "GAME_TIME": 41
 }
 
 
