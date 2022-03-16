@@ -1,6 +1,6 @@
 from tank import Tank
 from obstacle import Obstacle
-from shots import *
+from shot import Shot
 from config import *
 
 pygame.init()
@@ -105,12 +105,14 @@ class Game:
                 blue_tank_sprite_change_limiter = 0
             blue_tank_sprite_change_limiter += 1
         if keys[pygame.K_g] and not green_already_thrown:
-            new_green_shot = GreenShot(green_tank.rect.center, green_tank.shot_x_speed, green_tank.shot_y_speed)
+            new_green_shot = Shot(GREEN_SHOT_SPRITE, green_tank.rect.center, green_tank.shot_x_speed,
+                                  green_tank.shot_y_speed)
             all_sprites.add(new_green_shot)
             green_shot_limiter = 0
             green_already_thrown = True
         if keys[pygame.K_l] and not blue_already_thrown:
-            new_blue_shot = BlueShot(blue_tank.rect.center, blue_tank.shot_x_speed, blue_tank.shot_y_speed)
+            new_blue_shot = Shot(BLUE_SHOT_SPRITE, blue_tank.rect.center, blue_tank.shot_x_speed,
+                                 blue_tank.shot_y_speed)
             all_sprites.add(new_blue_shot)
             blue_shot_limiter = 0
             blue_already_thrown = True
