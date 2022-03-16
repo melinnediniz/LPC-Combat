@@ -7,4 +7,4 @@ game = game.Game()
 
 while game_loop:
     game.change_screen()
-    game_clock.tick(Constant.CLOCK)
+    game_clock.tick(Constant['CLOCK'])

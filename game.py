@@ -1,11 +1,17 @@
-from tank import Tank
-from obstacle import Obstacle
-from shot import Shot
+import random
+from modules.score import Score
+from modules.sound import Sound
+from modules.tank import Tank
+from modules.obstacle import Obstacle
+from modules.shot import Shot
 from config import *
 
 pygame.init()
-screen = pygame.display.set_mode(Constant.SCREEN_DIMENSIONS)
+screen = pygame.display.set_mode(Constant['SCREEN_DIMENSION'])
 pygame.display.set_caption("TANK PONG")
+
+score = Score(screen)
+sound = Sound()
 
 all_sprites = pygame.sprite.Group()
 blue_tank = Tank(BLUE_TANK_SPRITE_SHEET, BLUE_TANK_X_POS, BLUE_TANK_Y_POS, 'red')
@@ -43,15 +49,38 @@ class Game:
                 elif event.key == pygame.K_ESCAPE:
                     exit()
 
-        screen.fill(Color.GREEN)
+        screen.fill(Color['RED'])
         pygame.display.flip()
 
     def main(self):
         global green_already_thrown, blue_already_thrown, green_shot_limiter, blue_shot_limiter, green_tank_angle, \
-            blue_tank_angle, green_tank_sprite_change_limiter, blue_tank_sprite_change_limiter
+            blue_tank_angle, green_tank_sprite_change_limiter, blue_tank_sprite_change_limiter, \
+            timer_event, time_color_count, time_count
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
+
+            if event.type == timer_event:
+                time_count += 1
+                time_color_count += 1
+                print(f"T {time_count}")
+                if time_count > Constant['GAME_TIME']:
+                    if time_count == Constant['GAME_TIME'] + 5:
+                        screen.fill(random.choice(list_of_colors))
+                    elif time_count > Constant['GAME_TIME'] + 10:
+                        screen.fill(random.choice(list_of_colors))
+                        time_count = Constant['GAME_TIME'] + 5
+                
+                if time_color_count > Constant['GAME_TIME'] - 14:
+                        if time_color_count == Constant['GAME_TIME'] - 13:
+                            score.color_1, score.color_2 = Color['GREEN'], Color['BLUE']
+                        elif time_color_count == Constant['GAME_TIME'] - 11: 
+                            score.color_1, score.color_2 = Color['RED'], Color['RED']  
+                            time_color_count = Constant['GAME_TIME'] - 14
+                if time_count > Constant['GAME_TIME'] - 1:
+                    green_tank.lock(), blue_tank.lock()
+                    blue_already_thrown, green_already_thrown = True, True
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
@@ -117,9 +146,11 @@ class Game:
             blue_shot_limiter = 0
             blue_already_thrown = True
 
-        screen.fill(Color.RED)
-        display_score(screen, Constant.SCORE_1_POS, 1)
-        display_score(screen, Constant.SCORE_2_POS, 2)
+        if time_count < Constant['GAME_TIME']:
+            screen.fill(Color['RED'])
+            sound.play_move(), sound.play_shot()
+        score.display(Constant['SCORE_1_POS'], 1, score.color_1)
+        score.display(Constant['SCORE_2_POS'], 2, score.color_2)
         all_sprites.update()
         all_sprites.draw(screen)
         pygame.display.update()
