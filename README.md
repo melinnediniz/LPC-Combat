@@ -40,9 +40,9 @@ $ git clone https://github.com/melinnediniz/LPC-Combat
 $ cd LPC-Combat
 
 # Run the code
-$ python3 main.py
+$ python main.py
 ```
->  To use the `python3` command it is necessary to put the python installation path in the PATH environment variable and to restart the command prompt. More information [here](https://dicasdepython.com.br/resolvido-python-nao-e-reconhecido-como-um-comando-interno/).
+>  To use the `python` command it is necessary to put the python installation path in the PATH environment variable and to restart the command prompt. More information [here](https://dicasdepython.com.br/resolvido-python-nao-e-reconhecido-como-um-comando-interno/).
 
 ## How to contribute 🧐
 
