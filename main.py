@@ -2,6 +2,7 @@ import game
 import pygame
 from config import Constant, game_loop
 
+
 class Main:
     game_clock = pygame.time.Clock()
     game = game.Game()

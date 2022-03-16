@@ -25,7 +25,7 @@ class Tank(pygame.sprite.Sprite):
 
     def move_up(self, angle):
         self.previous_direction = 'up'
-        if self.movement == True:
+        if self.movement:
             if angle == 0:
                 self.rect.x += 3 * self.signal
                 self.shot_x_speed = 3 * 2 * self.signal
@@ -145,7 +145,7 @@ class Tank(pygame.sprite.Sprite):
 
     def move_down(self, angle):
         self.previous_direction = 'down'
-        if self.movement == True:
+        if self.movement:
             if angle == 0:
                 self.rect.x -= 3 * self.signal
                 self.shot_x_speed = 3 * 2 * self.signal
@@ -264,7 +264,7 @@ class Tank(pygame.sprite.Sprite):
                 self.shot_x_speed = 3 * 2 * self.signal
 
     def move_right(self, angle):
-        if self.movement == True:
+        if self.movement:
             self.image = self.sprite_sheet[angle]
             if self.previous_direction == 'up':
                 self.move_up(angle)
@@ -272,7 +272,7 @@ class Tank(pygame.sprite.Sprite):
                 self.move_down(angle)
 
     def move_left(self, angle):
-        if self.movement == True:
+        if self.movement:
             self.image = self.sprite_sheet[angle]
             if self.previous_direction == 'up':
                 self.move_up(angle)

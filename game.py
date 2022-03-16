@@ -11,9 +11,10 @@ screen = pygame.display.set_mode(Constant['SCREEN_DIMENSION'])
 pygame.display.set_caption("TANK PONG")
 
 
-
 class Game:
     def __init__(self):
+        self.new_blue_shot = None
+        self.new_green_shot = None
         self.current_screen = "start"
         self.score = Score(screen)
         self.sound = Sound()
@@ -37,7 +38,6 @@ class Game:
         self.blue_tank_angle = 0
         self.green_tank_sprite_change_limiter = 5
         self.blue_tank_sprite_change_limiter = 5
-
 
     def start(self):
         for event in pygame.event.get():
@@ -74,8 +74,8 @@ class Game:
                     if time_color_count > Constant['GAME_TIME'] - 14:
                         if time_color_count == Constant['GAME_TIME'] - 13:
                             self.score.color_1, self.score.color_2 = Color['GREEN'], Color['BLUE']
-                        elif time_color_count == Constant['GAME_TIME'] - 11: 
-                            self.score.color_1, self.score.color_2 = Color['RED'], Color['RED']  
+                        elif time_color_count == Constant['GAME_TIME'] - 11:
+                            self.score.color_1, self.score.color_2 = Color['RED'], Color['RED']
                             time_color_count = Constant['GAME_TIME'] - 14
                 if time_count > Constant['GAME_TIME'] - 1:
                     self.green_tank.lock(), self.blue_tank.lock()
@@ -134,13 +134,13 @@ class Game:
             self.blue_tank_sprite_change_limiter += 1
         if keys[pygame.K_g] and not self.green_already_thrown:
             self.new_green_shot = Shot(GREEN_SHOT_SPRITE, self.green_tank.rect.center, self.green_tank.shot_x_speed,
-                                  self.green_tank.shot_y_speed)
+                                       self.green_tank.shot_y_speed)
             self.all_sprites.add(self.new_green_shot)
             self.green_shot_limiter = 0
             self.green_already_thrown = True
         if keys[pygame.K_l] and not self.blue_already_thrown:
             self.new_blue_shot = Shot(BLUE_SHOT_SPRITE, self.blue_tank.rect.center, self.blue_tank.shot_x_speed,
-                                 self.blue_tank.shot_y_speed)
+                                      self.blue_tank.shot_y_speed)
             self.all_sprites.add(self.new_blue_shot)
             self.blue_shot_limiter = 0
             self.blue_already_thrown = True
