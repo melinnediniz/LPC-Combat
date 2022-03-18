@@ -10,12 +10,14 @@ pygame.display.set_caption("TANK PONG")
 all_sprites = pygame.sprite.Group()
 blue_tank = Tank(BLUE_TANK_SPRITE_SHEET, BLUE_TANK_X_POS, BLUE_TANK_Y_POS, 'red')
 green_tank = Tank(GREEN_TANK_SPRITE_SHEET, GREEN_TANK_X_POS, GREEN_TANK_Y_POS, 'green')
-obstacles = []
+obstacles = pygame.sprite.Group()
 for sprite, pos in OBSTACLES.items():
-    obstacles.append(Obstacle(sprite, pos[0], pos[1]))
+    obstacles.add(Obstacle(sprite, pos[0], pos[1]))
 all_sprites.add(blue_tank)
 all_sprites.add(green_tank)
 all_sprites.add(obstacles)
+green_shots_group = []
+blue_shots_group = []
 
 green_already_thrown = False
 blue_already_thrown = False
@@ -108,14 +110,26 @@ class Game:
             new_green_shot = Shot(GREEN_SHOT_SPRITE, green_tank.rect.center, green_tank.shot_x_speed,
                                   green_tank.shot_y_speed)
             all_sprites.add(new_green_shot)
+            green_shots_group.append(new_green_shot)
             green_shot_limiter = 0
             green_already_thrown = True
         if keys[pygame.K_l] and not blue_already_thrown:
             new_blue_shot = Shot(BLUE_SHOT_SPRITE, blue_tank.rect.center, blue_tank.shot_x_speed,
                                  blue_tank.shot_y_speed)
             all_sprites.add(new_blue_shot)
+            blue_shots_group.append(new_blue_shot)
             blue_shot_limiter = 0
             blue_already_thrown = True
+
+        for gs in green_shots_group:
+            for o in obstacles:
+                if pygame.sprite.collide_mask(gs, o):
+                    gs.collision_with_obstacle()
+
+        for bs in blue_shots_group:
+            for o in obstacles:
+                if pygame.sprite.collide_mask(bs, o):
+                    bs.collision_with_obstacle()
 
         screen.fill(Color.RED)
         display_score(screen, Constant.SCORE_1_POS, 1)
