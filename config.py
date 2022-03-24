@@ -64,5 +64,4 @@ OBSTACLES = {'sprites/right_block.png': (740, 396), 'sprites/left_block.png': (2
 
 # time event
 time_count = Constant['GAME_TIME']
-time_color_count = 0
 pygame.time.set_timer(pygame.USEREVENT + 1, 1000)
