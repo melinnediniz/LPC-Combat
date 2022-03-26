@@ -1,4 +1,5 @@
 import pygame
+from config import *
 
 
 class Obstacle(pygame.sprite.Sprite):
@@ -6,3 +7,6 @@ class Obstacle(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(sprite)
         self.rect = self.image.get_rect(center=(x_pos, y_pos))
+
+
+

@@ -1,7 +1,10 @@
 import random
+
+import pygame.time
+
 from modules.score import Score
 from modules.sound import Sound
-from modules.tank2 import Tank
+from modules.tank import Tank
 from modules.obstacle import Obstacle
 from modules.shot import Shot
 from config import *
@@ -19,17 +22,17 @@ class Game:
         self.score = Score(screen)
         self.sound = Sound()
 
-        self.all_sprites = pygame.sprite.Group()
-        
+        self.obstacles_sprites = pygame.sprite.Group()
+        self.tanks_sprites = pygame.sprite.Group
+
         self.blue_tank = Tank(BLUE_TANK_X_POS, BLUE_TANK_Y_POS, 'blue')
         self.green_tank = Tank(GREEN_TANK_X_POS, GREEN_TANK_Y_POS, 'green')
         
         self.obstacles = []
         for sprite, pos in OBSTACLES.items():
             self.obstacles.append(Obstacle(sprite, pos[0], pos[1]))
-        #self.all_sprites.add(self.blue_tank)
-        #self.all_sprites.add(self.green_tank)
-        self.all_sprites.add(self.obstacles)
+
+        self.obstacles_sprites.add(self.obstacles)
 
         self.green_already_thrown = False
         self.blue_already_thrown = False
@@ -79,26 +82,32 @@ class Game:
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
-                    self.green_tank.rotate()
+                    self.green_tank.rotate_up()
+                elif event.key == pygame.K_s:
+                    self.green_tank.rotate_down()
                 if event.key == pygame.K_UP:
-                    self.blue_tank.rotate()
+                    self.blue_tank.rotate_up()
+                elif event.key == pygame.K_DOWN:
+                    self.blue_tank.rotate_down()
             
             keys = pygame.key.get_pressed()
             if keys[pygame.K_d]:
-                self.green_tank.move_up()
-            if keys[pygame.K_LEFT]:
-                self.blue_tank.move_up()
+                self.green_tank.move(1)
+            elif keys[pygame.K_a]:
+                self.green_tank.move(-1)
+            if keys[pygame.K_j]:
+                self.blue_tank.move(1)
+            elif keys[pygame.K_l]:
+                self.blue_tank.move(-1)
 
-        
         if time_count > 0:
             screen.fill(Color['RED'])
-            self.sound.play_move(), self.sound.play_shot()
+            self.sound.play_move(), self.sound.play_flip()
         self.score.display(Constant['SCORE_1_POS'], 1, self.score.color_1)
         self.score.display(Constant['SCORE_2_POS'], 2, self.score.color_2)
-        self.all_sprites.update()
-        self.all_sprites.draw(screen)
+        self.obstacles_sprites.update()
+        self.obstacles_sprites.draw(screen)
         self.green_tank.draw(screen), self.blue_tank.draw(screen)
-
         pygame.display.flip()
 
     def change_screen(self):
@@ -106,3 +115,6 @@ class Game:
             self.start()
         elif self.current_screen == "main":
             self.main()
+
+
+
