@@ -58,6 +58,7 @@ class Game:
                     exit()
 
         screen.fill(Color['RED'])
+        self.draw.start_text()
         pygame.display.flip()
 
     def main(self):
