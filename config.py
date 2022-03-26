@@ -30,32 +30,34 @@ Constant = {
     "FONT_2": "fonts/G7StarForce.ttf", 
     "SCREEN_DIMENSION": (1022, 738), 
     "CLOCK": 60,
-    "SCORE_1_POS": (250, 5),
-    "SCORE_2_POS": (780, 5),
     "GAME_TIME": 41
 }
 
 
 TICK_SHOT_LIMITER = 15
 
-BLUE_TANK_SPRITE_SHEET = []
-for i in range(0, 360, 15):
-    BLUE_TANK_SPRITE_SHEET.append(pygame.image.load(f'sprites/blue_tank/{i}.png'))
-BLUE_TANK_X_POS = 932
-BLUE_TANK_Y_POS = 396
+POSITIONS = {
+    "BLUE_TANK_X_POS": 932,
+    "BLUE_TANK_Y_POS": 396,
+    "GREEN_TANK_X_POS": 90,
+    "GREEN_TANK_Y_POS": 396,
 
-GREEN_TANK_SPRITE_SHEET = []
-for i in range(0, 360, 15):
-    GREEN_TANK_SPRITE_SHEET.append(pygame.image.load(f'sprites/green_tank/{i}.png'))
-GREEN_TANK_X_POS = 90
-GREEN_TANK_Y_POS = 396
+    "BLUE_SHOT_X_POS": 872,
+    "BLUE_SHOT_Y_POS": 396,
+    "GREEN_SHOT_X_POS": 150,
+    "GREEN_SHOT_Y_POS": 396,
 
-BLUE_SHOT_SPRITE = 'sprites/blue_shot.png'
-BLUE_SHOT_X_POS = 872
-BLUE_SHOT_Y_POS = 396
-GREEN_SHOT_SPRITE = 'sprites/green_shot.png'
-GREEN_SHOT_X_POS = 150
-GREEN_SHOT_Y_POS = 396
+    "SCORE_1_POS": (250, 5),
+    "SCORE_2_POS": (780, 5),
+
+}
+
+Images = {
+    "BLUE_SHOT_SPRITE": 'sprites/blue_shot.png',
+    "GREEN_SHOT_SPRITE": 'sprites/green_shot.png',
+    "GREEN_TANK": pygame.image.load(f'sprites/green_tank/0.png'),
+    "BLUE_TANK": pygame.image.load(f'sprites/blue_tank/0.png')
+}
 
 # obstacle image file path: obstacle (x, y) positions
 OBSTACLES = {'sprites/right_block.png': (740, 396), 'sprites/left_block.png': (276, 396),

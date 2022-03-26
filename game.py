@@ -27,8 +27,8 @@ class Game:
         self.obstacles_sprites = pygame.sprite.Group()
         self.tanks_sprites = pygame.sprite.Group
 
-        self.blue_tank = Tank(BLUE_TANK_X_POS, BLUE_TANK_Y_POS, 'blue')
-        self.green_tank = Tank(GREEN_TANK_X_POS, GREEN_TANK_Y_POS, 'green')
+        self.blue_tank = Tank(POSITIONS['BLUE_TANK_X_POS'], POSITIONS['BLUE_TANK_Y_POS'], 'blue')
+        self.green_tank = Tank(POSITIONS['GREEN_TANK_X_POS'], POSITIONS['GREEN_TANK_Y_POS'], 'green')
         
         self.obstacles = []
         for sprite, pos in OBSTACLES.items():
@@ -105,8 +105,8 @@ class Game:
         if time_count > 0:
             screen.fill(Color['RED'])
             self.sound.play_move(), self.sound.play_flip()
-        self.draw.score_display(Constant['SCORE_1_POS'], 1, self.score.color_1)
-        self.draw.score_display(Constant['SCORE_2_POS'], 2, self.score.color_2)
+        self.draw.score_display(POSITIONS['SCORE_1_POS'], 1, self.score.color_1)
+        self.draw.score_display(POSITIONS['SCORE_2_POS'], 2, self.score.color_2)
         self.obstacles_sprites.update()
         self.obstacles_sprites.draw(screen)
         self.green_tank.draw(screen), self.blue_tank.draw(screen)
