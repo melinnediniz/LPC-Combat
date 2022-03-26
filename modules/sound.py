@@ -1,14 +1,14 @@
 import pygame
-
+from config import Sounds
 pygame.init()
 pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=512)
 
 
 class Sound:
     def __init__(self):
-        self.shot = pygame.mixer.Sound('sound/shot.ogg')
-        self.move = pygame.mixer.Sound("sound/move.ogg")
-        self.flip = pygame.mixer.Sound("sound/flip_tank.wav")
+        self.shot = Sounds["shot"]
+        self.move = Sounds["move"]
+        self.flip = Sounds["flip"]
         self.kill = ""  # pygame.mixer.Sound("sound/kill.wav")
         self.green_tank_channel = pygame.mixer.Channel(0)
         self.blue_tank_channel = pygame.mixer.Channel(1)
@@ -19,17 +19,17 @@ class Sound:
         self.blue_tank_channel.set_volume(0.5), self.green_tank_channel.set_volume(0.5)
         key = pygame.key.get_pressed()
         if not self.green_tank_channel.get_busy() and not self.flip_channel.get_busy():
-            if key[pygame.K_d] or key[pygame.K_s]:
+            if key[pygame.K_d] or key[pygame.K_a]:
                 self.green_tank_channel.play(self.move)
         elif self.green_tank_channel.get_busy():
-            if not key[pygame.K_d] or not key[pygame.K_s]:
+            if not key[pygame.K_d] and not key[pygame.K_a]:
                 self.green_tank_channel.stop()
 
         if not self.blue_tank_channel.get_busy() and not self.flip_channel.get_busy():
             if key[pygame.K_j] or key[pygame.K_l]:
                 self.blue_tank_channel.play(self.move)
         elif self.blue_tank_channel.get_busy():
-            if not key[pygame.K_j] or not key[pygame.K_l]:
+            if not key[pygame.K_j] and not key[pygame.K_l]:
                 self.blue_tank_channel.stop()
 
     def play_flip(self):

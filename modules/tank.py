@@ -34,8 +34,8 @@ class Tank(pygame.sprite.Sprite):
 
         print(f'ANGLE {self.angle}')
 
-    def move(self, back_or_foward):
-        value = back_or_foward
+    def move(self, back_or_forward):
+        value = back_or_forward
         if self.color == 'green':
             if self.angle == 0 or self.angle == 360:
                 self.x_pos += self.speed * value
@@ -88,7 +88,7 @@ class Tank(pygame.sprite.Sprite):
                 self.x_pos -= self.speed * abs(cos(radians(self.angle))) * value
                 self.y_pos += self.speed * abs(sin(radians(self.angle))) * value
 
-        print(f'{self.angle} -- {cos(self.angle):.3f} -- {sin(self.angle):.3f} -- {self.speed}')
+        # print(f'{self.angle} -- {cos(self.angle):.3f} -- {sin(self.angle):.3f} -- {self.speed}')
 
     def lock(self):
         self.movement = False

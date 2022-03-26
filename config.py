@@ -3,6 +3,12 @@ import pygame
 pygame.init()
 game_loop = True
 
+Sounds = {
+    "shot": pygame.mixer.Sound('sound/shot.ogg'),
+    "move": pygame.mixer.Sound("sound/move.ogg"),
+    "flip": pygame.mixer.Sound("sound/flip_tank.wav")
+}
+
 Color = {
     "BLACK": (0, 0, 0),
     "RED": (154, 47, 14),

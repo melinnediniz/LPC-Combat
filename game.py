@@ -2,9 +2,10 @@ import random
 
 import pygame.time
 
-from modules.score import Score
+from modules.draw import Draw
 from modules.sound import Sound
 from modules.tank import Tank
+from modules.score import Score
 from modules.obstacle import Obstacle
 from modules.shot import Shot
 from config import *
@@ -19,7 +20,8 @@ class Game:
         self.new_blue_shot = None
         self.new_green_shot = None
         self.current_screen = "start"
-        self.score = Score(screen)
+        self.draw = Draw(screen)
+        self.score = Score()
         self.sound = Sound()
 
         self.obstacles_sprites = pygame.sprite.Group()
@@ -103,8 +105,8 @@ class Game:
         if time_count > 0:
             screen.fill(Color['RED'])
             self.sound.play_move(), self.sound.play_flip()
-        self.score.display(Constant['SCORE_1_POS'], 1, self.score.color_1)
-        self.score.display(Constant['SCORE_2_POS'], 2, self.score.color_2)
+        self.draw.score_display(Constant['SCORE_1_POS'], 1, self.score.color_1)
+        self.draw.score_display(Constant['SCORE_2_POS'], 2, self.score.color_2)
         self.obstacles_sprites.update()
         self.obstacles_sprites.draw(screen)
         self.green_tank.draw(screen), self.blue_tank.draw(screen)
