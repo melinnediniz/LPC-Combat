@@ -51,6 +51,7 @@ class Game:
     def main(self):
         global green_already_thrown, blue_already_thrown, green_shot_limiter, blue_shot_limiter, green_tank_angle, \
             blue_tank_angle, green_tank_sprite_change_limiter, blue_tank_sprite_change_limiter
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -124,6 +125,8 @@ class Game:
         for gs in green_shots_group:
             if pygame.sprite.collide_mask(gs, blue_tank):
                 gs.kill()
+                green_shots_group.remove(gs)
+                update_score(1)
             for o in obstacles:
                 if pygame.sprite.collide_mask(gs, o):
                     gs.collision_with_obstacle()
@@ -131,6 +134,8 @@ class Game:
         for bs in blue_shots_group:
             if pygame.sprite.collide_mask(bs, green_tank):
                 bs.kill()
+                blue_shots_group.remove(bs)
+                update_score(2)
             for o in obstacles:
                 if pygame.sprite.collide_mask(bs, o):
                     bs.collision_with_obstacle()
