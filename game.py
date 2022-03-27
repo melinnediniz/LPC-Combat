@@ -10,6 +10,7 @@ from config import *
 pygame.init()
 screen = pygame.display.set_mode(Constant['SCREEN_DIMENSION'])
 pygame.display.set_caption("TANK PONG")
+can_shot = True
 
 
 class Game:
@@ -57,7 +58,7 @@ class Game:
         pygame.display.update()
 
     def main(self):
-        global time_count
+        global time_count, can_shot
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -78,6 +79,7 @@ class Game:
                     for bs in self.blue_shots_group:
                         self.all_sprites.remove(bs)
                     self.green_tank.lock(), self.blue_tank.lock()
+                    can_shot = False
                 elif time_count == -6:
                     for gs in self.green_shots_group:
                         self.all_sprites.remove(gs)
@@ -85,6 +87,7 @@ class Game:
                         self.all_sprites.remove(bs)
                     screen.fill(random.choice(list_of_colors))
                     time_count = 0
+                    can_shot = False
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
@@ -138,14 +141,14 @@ class Game:
                 self.blue_tank.move_left(self.blue_tank_angle)
                 self.blue_tank_sprite_change_limiter = 0
             self.blue_tank_sprite_change_limiter += 1
-        if keys[pygame.K_g] and not self.green_already_thrown:
+        if keys[pygame.K_g] and not self.green_already_thrown and can_shot:
             new_green_shot = Shot(GREEN_SHOT_SPRITE, self.green_tank.rect.center, self.green_tank.shot_x_speed,
                                   self.green_tank.shot_y_speed)
             self.all_sprites.add(new_green_shot)
             self.green_shots_group.append(new_green_shot)
             self.green_shot_limiter = 0
             self.green_already_thrown = True
-        if keys[pygame.K_l] and not self.blue_already_thrown:
+        if keys[pygame.K_l] and not self.blue_already_thrown and can_shot:
             new_blue_shot = Shot(BLUE_SHOT_SPRITE, self.blue_tank.rect.center, self.blue_tank.shot_x_speed,
                                  self.blue_tank.shot_y_speed)
             self.all_sprites.add(new_blue_shot)
