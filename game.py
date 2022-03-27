@@ -14,8 +14,6 @@ pygame.display.set_caption("TANK PONG")
 
 class Game:
     def __init__(self):
-        self.new_blue_shot = None
-        self.new_green_shot = None
         self.current_screen = "start"
         self.draw = Draw(screen)
         self.score = Score(screen)
@@ -56,7 +54,7 @@ class Game:
 
         screen.fill(Color['RED'])
         self.draw.start_text()
-        pygame.display.flip()
+        pygame.display.update()
 
     def main(self):
         global time_count
@@ -75,8 +73,16 @@ class Game:
                         self.score.color_1, self.score.color_2 = Color['GREEN'], Color['BLUE']
                 if time_count == 0:
                     screen.fill(random.choice(list_of_colors))
+                    for gs in self.green_shots_group:
+                        self.all_sprites.remove(gs)
+                    for bs in self.blue_shots_group:
+                        self.all_sprites.remove(bs)
                     self.green_tank.lock(), self.blue_tank.lock()
                 elif time_count == -6:
+                    for gs in self.green_shots_group:
+                        self.all_sprites.remove(gs)
+                    for bs in self.blue_shots_group:
+                        self.all_sprites.remove(bs)
                     screen.fill(random.choice(list_of_colors))
                     time_count = 0
 
@@ -133,17 +139,17 @@ class Game:
                 self.blue_tank_sprite_change_limiter = 0
             self.blue_tank_sprite_change_limiter += 1
         if keys[pygame.K_g] and not self.green_already_thrown:
-            self.new_green_shot = Shot(GREEN_SHOT_SPRITE, self.green_tank.rect.center, self.green_tank.shot_x_speed,
+            new_green_shot = Shot(GREEN_SHOT_SPRITE, self.green_tank.rect.center, self.green_tank.shot_x_speed,
                                   self.green_tank.shot_y_speed)
-            self.all_sprites.add(self.new_green_shot)
-            self.green_shots_group.append(self.new_green_shot)
+            self.all_sprites.add(new_green_shot)
+            self.green_shots_group.append(new_green_shot)
             self.green_shot_limiter = 0
             self.green_already_thrown = True
         if keys[pygame.K_l] and not self.blue_already_thrown:
-            self.new_blue_shot = Shot(BLUE_SHOT_SPRITE, self.blue_tank.rect.center, self.blue_tank.shot_x_speed,
+            new_blue_shot = Shot(BLUE_SHOT_SPRITE, self.blue_tank.rect.center, self.blue_tank.shot_x_speed,
                                  self.blue_tank.shot_y_speed)
-            self.all_sprites.add(self.new_blue_shot)
-            self.blue_shots_group.append(self.new_blue_shot)
+            self.all_sprites.add(new_blue_shot)
+            self.blue_shots_group.append(new_blue_shot)
             self.blue_shot_limiter = 0
             self.blue_already_thrown = True
 
@@ -152,6 +158,7 @@ class Game:
                 gs.kill()
                 self.green_shots_group.remove(gs)
                 self.score.update(1)
+
             for o in self.obstacles:
                 if pygame.sprite.collide_mask(gs, o):
                     gs.collision_with_obstacle()
@@ -161,19 +168,21 @@ class Game:
                 bs.kill()
                 self.blue_shots_group.remove(bs)
                 self.score.update(2)
+
             for o in self.obstacles:
                 if pygame.sprite.collide_mask(bs, o):
                     bs.collision_with_obstacle()
 
-        if time_count > 0:
-            screen.fill(Color['RED'])
-            self.sound.play_move(), self.sound.play_shot()
         self.score.score_display(Constant['SCORE_1_POS'], 1, self.score.color_1)
         self.score.score_display(Constant['SCORE_2_POS'], 2, self.score.color_2)
         self.all_sprites.update()
         self.all_sprites.draw(screen)
-
         pygame.display.update()
+
+        if time_count > 0:
+            screen.fill(Color['RED'])
+            self.sound.play_move(), self.sound.play_shot()
+
         if self.green_shot_limiter == TICK_SHOT_LIMITER:
             self.green_already_thrown = False
         if self.blue_shot_limiter == TICK_SHOT_LIMITER:
