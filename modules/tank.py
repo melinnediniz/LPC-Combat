@@ -23,9 +23,14 @@ class Tank(pygame.sprite.Sprite):
     def lock(self):
         self.movement = False
 
+    def unlock(self):
+        self.movement = True
+
     def move_up(self, angle):
-        self.previous_direction = 'up'
+        if self.previous_direction == 'down':
+            self.unlock()
         if self.movement:
+            self.previous_direction = 'up'
             if angle == 0:
                 self.rect.x += 3 * self.signal
                 self.shot_x_speed = 3 * 2 * self.signal
@@ -144,8 +149,10 @@ class Tank(pygame.sprite.Sprite):
                 self.shot_x_speed = 3 * 2 * self.signal
 
     def move_down(self, angle):
-        self.previous_direction = 'down'
+        if self.previous_direction == 'up':
+            self.unlock()
         if self.movement:
+            self.previous_direction = 'down'
             if angle == 0:
                 self.rect.x -= 3 * self.signal
                 self.shot_x_speed = 3 * 2 * self.signal
@@ -282,6 +289,9 @@ class Tank(pygame.sprite.Sprite):
     def turn_off_speed(self):
         self.x_speed = 0
         self.y_speed = 0
+
+    def collide_with_obstacle(self):
+        self.lock()
 
     def update(self):
         self.rect.x += self.x_speed

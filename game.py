@@ -101,7 +101,7 @@ class Game:
             self.green_tank.move_up(self.green_tank_angle)
         if keys[pygame.K_a]:
             self.green_tank.move_down(self.green_tank_angle)
-        if keys[pygame.K_w]:
+        if keys[pygame.K_w] and self.green_tank.movement:
             if self.green_tank_sprite_change_limiter == 5:
                 if self.green_tank_angle == 0:
                     self.green_tank_angle = 22
@@ -110,7 +110,7 @@ class Game:
                 self.green_tank.move_left(self.green_tank_angle)
                 self.green_tank_sprite_change_limiter = 0
             self.green_tank_sprite_change_limiter += 1
-        if keys[pygame.K_s]:
+        if keys[pygame.K_s] and self.green_tank.movement:
             if self.green_tank_sprite_change_limiter == 5:
                 if self.green_tank_angle == 23:
                     self.green_tank_angle = 1
@@ -123,7 +123,7 @@ class Game:
             self.blue_tank.move_up(self.blue_tank_angle)
         if keys[pygame.K_RIGHT]:
             self.blue_tank.move_down(self.blue_tank_angle)
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_UP] and self.blue_tank.movement:
             if self.blue_tank_sprite_change_limiter == 5:
                 if self.blue_tank_angle == 23:
                     self.blue_tank_angle = 1
@@ -132,7 +132,7 @@ class Game:
                 self.blue_tank.move_right(self.blue_tank_angle)
                 self.blue_tank_sprite_change_limiter = 0
             self.blue_tank_sprite_change_limiter += 1
-        if keys[pygame.K_DOWN]:
+        if keys[pygame.K_DOWN] and self.blue_tank.movement:
             if self.blue_tank_sprite_change_limiter == 5:
                 if self.blue_tank_angle == 0:
                     self.blue_tank_angle = 22
@@ -175,6 +175,12 @@ class Game:
             for o in self.obstacles:
                 if pygame.sprite.collide_mask(bs, o):
                     bs.collision_with_obstacle()
+
+        for o in self.obstacles:
+            if pygame.sprite.collide_mask(self.green_tank, o):
+                self.green_tank.collide_with_obstacle()
+            if pygame.sprite.collide_mask(self.blue_tank, o):
+                self.blue_tank.collide_with_obstacle()
 
         self.score.score_display(Constant['SCORE_1_POS'], 1, self.score.color_1)
         self.score.score_display(Constant['SCORE_2_POS'], 2, self.score.color_2)
