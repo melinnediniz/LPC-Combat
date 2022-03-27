@@ -11,32 +11,9 @@ pygame.init()
 screen = pygame.display.set_mode(Constant['SCREEN_DIMENSION'])
 pygame.display.set_caption("TANK PONG")
 
-all_sprites = pygame.sprite.Group()
-blue_tank = Tank(BLUE_TANK_SPRITE_SHEET, BLUE_TANK_X_POS, BLUE_TANK_Y_POS, 'red')
-green_tank = Tank(GREEN_TANK_SPRITE_SHEET, GREEN_TANK_X_POS, GREEN_TANK_Y_POS, 'green')
-obstacles = pygame.sprite.Group()
-for sprite, pos in OBSTACLES.items():
-    obstacles.add(Obstacle(sprite, pos[0], pos[1]))
-all_sprites.add(blue_tank)
-all_sprites.add(green_tank)
-all_sprites.add(obstacles)
-green_shots_group = []
-blue_shots_group = []
-
-green_already_thrown = False
-blue_already_thrown = False
-green_shot_limiter = TICK_SHOT_LIMITER
-blue_shot_limiter = TICK_SHOT_LIMITER
-
-green_tank_angle = 0
-blue_tank_angle = 0
-green_tank_sprite_change_limiter = 5
-blue_tank_sprite_change_limiter = 5
 
 class Game:
     def __init__(self):
-        self.new_blue_shot = None
-        self.new_green_shot = None
         self.current_screen = "start"
         self.draw = Draw(screen)
         self.score = Score()
@@ -51,6 +28,8 @@ class Game:
         self.all_sprites.add(self.blue_tank)
         self.all_sprites.add(self.green_tank)
         self.all_sprites.add(self.obstacles)
+        self.green_shots_group = []
+        self.blue_shots_group = []
 
         self.green_already_thrown = False
         self.blue_already_thrown = False
@@ -75,7 +54,7 @@ class Game:
 
         screen.fill(Color['RED'])
         self.draw.start_text()
-        pygame.display.flip()
+        pygame.display.update()
 
     def main(self):
         global green_already_thrown, blue_already_thrown, green_shot_limiter, blue_shot_limiter, green_tank_angle, \
@@ -96,8 +75,16 @@ class Game:
                 if time_count == 0:
                     screen.fill(random.choice(list_of_colors))
                     self.green_tank.lock(), self.blue_tank.lock()
+                    for gs in self.green_shots_group:
+                        self.all_sprites.remove(gs)
+                    for bs in self.blue_shots_group:
+                        self.all_sprites.remove(bs)
                 elif time_count == -6:
                     screen.fill(random.choice(list_of_colors))
+                    for gs in self.green_shots_group:
+                        self.all_sprites.remove(gs)
+                    for bs in self.blue_shots_group:
+                        self.all_sprites.remove(bs)
                     time_count = 0
 
             if event.type == pygame.KEYDOWN:
@@ -153,49 +140,50 @@ class Game:
                 self.blue_tank_sprite_change_limiter = 0
             self.blue_tank_sprite_change_limiter += 1
         if keys[pygame.K_g] and not self.green_already_thrown:
-            new_green_shot = Shot(GREEN_SHOT_SPRITE, green_tank.rect.center, green_tank.shot_x_speed,
-                                  green_tank.shot_y_speed)
-            all_sprites.add(new_green_shot)
-            green_shots_group.append(new_green_shot)
-            green_shot_limiter = 0
-            green_already_thrown = True
+            new_green_shot = Shot(GREEN_SHOT_SPRITE, self.green_tank.rect.center, self.green_tank.shot_x_speed,
+                                  self.green_tank.shot_y_speed)
+            self.all_sprites.add(new_green_shot)
+            self.green_shots_group.append(new_green_shot)
+            self.green_shot_limiter = 0
+            self.green_already_thrown = True
         if keys[pygame.K_l] and not self.blue_already_thrown:
-            new_blue_shot = Shot(BLUE_SHOT_SPRITE, blue_tank.rect.center, blue_tank.shot_x_speed,
-                                 blue_tank.shot_y_speed)
-            all_sprites.add(new_blue_shot)
-            blue_shots_group.append(new_blue_shot)
-            blue_shot_limiter = 0
-            blue_already_thrown = True
+            new_blue_shot = Shot(BLUE_SHOT_SPRITE, self.blue_tank.rect.center, self.blue_tank.shot_x_speed,
+                                 self.blue_tank.shot_y_speed)
+            self.all_sprites.add(new_blue_shot)
+            self.blue_shots_group.append(new_blue_shot)
+            self.blue_shot_limiter = 0
+            self.blue_already_thrown = True
 
-        for gs in green_shots_group:
-            if pygame.sprite.collide_mask(gs, blue_tank):
+        for gs in self.green_shots_group:
+            if pygame.sprite.collide_mask(gs, self.blue_tank):
                 gs.kill()
-                green_shots_group.remove(gs)
+                self.green_shots_group.remove(gs)
                 self.score.update(1)
-            for o in obstacles:
+                print(f'{self.score.score_1}, {self.score.score_2}')
+            for o in self.obstacles:
                 if pygame.sprite.collide_mask(gs, o):
                     gs.collision_with_obstacle()
 
-        for bs in blue_shots_group:
-            if pygame.sprite.collide_mask(bs, green_tank):
+        for bs in self.blue_shots_group:
+            if pygame.sprite.collide_mask(bs, self.green_tank):
                 bs.kill()
-                blue_shots_group.remove(bs)
+                self.blue_shots_group.remove(bs)
                 self.score.update(2)
-            for o in obstacles:
+                print(f'{self.score.score_1}, {self.score.score_2}')
+            for o in self.obstacles:
                 if pygame.sprite.collide_mask(bs, o):
                     bs.collision_with_obstacle()
+
+        self.draw.score_display(Constant['SCORE_1_POS'], self.score.score_1, self.score.color_1)
+        self.draw.score_display(Constant['SCORE_2_POS'], self.score.score_2, self.score.color_2)
+        self.all_sprites.update()
+        self.all_sprites.draw(screen)
+        pygame.display.update()
 
         if time_count > 0:
             screen.fill(Color['RED'])
             self.sound.play_move(), self.sound.play_shot()
-        self.draw.score_display(Constant['SCORE_1_POS'], 1, self.score.color_1)
-        self.draw.score_display(Constant['SCORE_2_POS'], 2, self.score.color_2)
-        self.all_sprites.update()
-        self.all_sprites.draw(screen)
 
-        all_sprites.update()
-        all_sprites.draw(screen)
-        pygame.display.update()
         if self.green_shot_limiter == TICK_SHOT_LIMITER:
             self.green_already_thrown = False
         if self.blue_shot_limiter == TICK_SHOT_LIMITER:
