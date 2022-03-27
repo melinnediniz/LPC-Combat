@@ -158,6 +158,10 @@ class Game:
             self.blue_shot_limiter = 0
             self.blue_already_thrown = True
 
+        if pygame.sprite.collide_mask(self.green_tank, self.blue_tank):
+            self.green_tank.lock()
+            self.blue_tank.lock()
+
         for gs in self.green_shots_group:
             if pygame.sprite.collide_mask(gs, self.blue_tank):
                 gs.kill()
