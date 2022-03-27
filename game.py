@@ -122,11 +122,15 @@ class Game:
             blue_already_thrown = True
 
         for gs in green_shots_group:
+            if pygame.sprite.collide_mask(gs, blue_tank):
+                gs.kill()
             for o in obstacles:
                 if pygame.sprite.collide_mask(gs, o):
                     gs.collision_with_obstacle()
 
         for bs in blue_shots_group:
+            if pygame.sprite.collide_mask(bs, green_tank):
+                bs.kill()
             for o in obstacles:
                 if pygame.sprite.collide_mask(bs, o):
                     bs.collision_with_obstacle()
