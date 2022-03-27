@@ -1,7 +1,8 @@
 import pygame
 from math import sin, cos, radians
-
+from random import randint
 from config import Images
+from modules.shot import Shot
 
 
 class Tank(pygame.sprite.Sprite):
@@ -12,13 +13,27 @@ class Tank(pygame.sprite.Sprite):
         self.y_pos = y_pos
         self.color = color
         if self.color == 'green':
-            self.image = Images['GREEN_TANK'].convert_alpha()
+            self.image = Images['GREEN_TANK'].convert()
         elif self.color == 'blue':
             self.image = Images['BLUE_TANK'].convert()
         self.rotated_img = self.image
         self.rect = self.rotated_img.get_rect(center=(x_pos, y_pos))
         self.speed = 3
-        self.movement = True
+        #self.center_x = self.image.get_width()/2
+        self.is_flipping = False
+
+    def create_shot(self):
+        if self.color == "green":
+            return Shot(Images['BLUE_SHOT_SPRITE'], self.x_pos, self.y_pos)
+        elif self.color == "blue":
+            return Shot(Images['GREEN_SHOT_SPRITE'], self.x_pos, self.y_pos)
+
+    def flip(self):
+        if self.angle < 360:
+            self.angle += 20
+            self.rotated_img = pygame.transform.rotate(self.image, self.angle)
+        else:
+            self.randomize()
 
     def rotate_up(self):
         if self.angle < 360:
@@ -87,6 +102,14 @@ class Tank(pygame.sprite.Sprite):
                 self.y_pos += self.speed * abs(sin(radians(self.angle))) * value
 
         # print(f'{self.angle} -- {cos(self.angle):.3f} -- {sin(self.angle):.3f} -- {self.speed}')
+
+    def randomize(self):
+        pygame.time.delay(60)
+        self.x_pos = randint(200, 600)
+        self.y_pos = randint(200, 600)
+        self.is_flipping = False
+        self.rotated_img = Images['GREEN_TANK']
+        self.angle = 0
 
     def lock(self):
         self.movement = False

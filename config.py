@@ -27,7 +27,9 @@ list_of_colors = [Color['AQUA'], Color['PINK'], Color['DARK_RED'], Color['DARK_G
 
 Constant = {
     "FONT": "fonts/Megafont.ttf", 
-    "FONT_2": "fonts/G7StarForce.ttf", 
+    "FONT_2": "fonts/G7StarForce.ttf",
+    "WIDTH": 1022,
+    "HEIGHT": 738,
     "SCREEN_DIMENSION": (1022, 738), 
     "CLOCK": 60,
     "GAME_TIME": 41
@@ -37,10 +39,10 @@ Constant = {
 TICK_SHOT_LIMITER = 15
 
 POSITIONS = {
-    "BLUE_TANK_X_POS": 932,
-    "BLUE_TANK_Y_POS": 396,
-    "GREEN_TANK_X_POS": 90,
-    "GREEN_TANK_Y_POS": 396,
+    "BLUE_TANK_X_POS": 912,
+    "BLUE_TANK_Y_POS": 376,
+    "GREEN_TANK_X_POS": 60,
+    "GREEN_TANK_Y_POS": 376,
 
     "BLUE_SHOT_X_POS": 872,
     "BLUE_SHOT_Y_POS": 396,
