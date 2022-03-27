@@ -1,3 +1,4 @@
+from random import randint
 import pygame
 
 
@@ -12,3 +13,7 @@ class Shot(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += self.x_speed
         self.rect.y += self.y_speed
+
+    def collision_with_obstacle(self):
+        self.x_speed *= -1
+        self.y_speed = randint(-6, 6)

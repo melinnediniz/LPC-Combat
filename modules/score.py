@@ -1,7 +1,6 @@
 from config import Color
 
 
-
 class Score:
     def __init__(self):
         self.score_1 = 0
