@@ -23,12 +23,13 @@ class Tank(pygame.sprite.Sprite):
     def lock(self):
         self.movement = False
 
-    def unlock(self):
-        self.movement = True
+    def unlock(self, is_game_over):
+        if not is_game_over:
+            self.movement = True
 
-    def move_up(self, angle):
+    def move_up(self, angle, is_game_over):
         if self.previous_direction == 'down':
-            self.unlock()
+            self.unlock(is_game_over)
         if self.movement:
             self.previous_direction = 'up'
             if angle == 0:
@@ -148,9 +149,9 @@ class Tank(pygame.sprite.Sprite):
                 self.shot_y_speed = -1 * 2 * self.signal
                 self.shot_x_speed = 3 * 2 * self.signal
 
-    def move_down(self, angle):
+    def move_down(self, angle, is_game_over):
         if self.previous_direction == 'up':
-            self.unlock()
+            self.unlock(is_game_over)
         if self.movement:
             self.previous_direction = 'down'
             if angle == 0:
@@ -270,21 +271,21 @@ class Tank(pygame.sprite.Sprite):
                 self.shot_y_speed = -1 * 2 * self.signal
                 self.shot_x_speed = 3 * 2 * self.signal
 
-    def move_right(self, angle):
+    def move_right(self, angle, is_game_over):
         if self.movement:
             self.image = self.sprite_sheet[angle]
             if self.previous_direction == 'up':
-                self.move_up(angle)
+                self.move_up(angle, is_game_over)
             else:
-                self.move_down(angle)
+                self.move_down(angle, is_game_over)
 
-    def move_left(self, angle):
+    def move_left(self, angle, is_game_over):
         if self.movement:
             self.image = self.sprite_sheet[angle]
             if self.previous_direction == 'up':
-                self.move_up(angle)
+                self.move_up(angle, is_game_over)
             else:
-                self.move_down(angle)
+                self.move_down(angle, is_game_over)
 
     def turn_off_speed(self):
         self.x_speed = 0
