@@ -4,9 +4,16 @@ from config import Constant, game_loop
 
 
 class Main:
-    game_clock = pygame.time.Clock()
-    game = game.Game()
+    def __init__(self):
+        self.game_clock = pygame.time.Clock()
+        self.game = game.Game()
 
-    while game_loop:
-        game.change_screen()
-        game_clock.tick(Constant['CLOCK'])
+    def mainloop(self):
+        while game_loop:
+            self.game.change_screen()
+            self.game_clock.tick(Constant['CLOCK'])
+
+
+main = Main()
+if __name__ == '__main__':
+    main.mainloop()
