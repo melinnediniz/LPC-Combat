@@ -1,6 +1,6 @@
 import game
 import pygame
-from config import Constant, game_loop
+from config import Constant, Boolean
 
 
 class Main:
@@ -9,7 +9,7 @@ class Main:
         self.game = game.Game()
 
     def mainloop(self):
-        while game_loop:
+        while Boolean['game_loop']:
             self.game.change_screen()
             self.game_clock.tick(Constant['CLOCK'])
 

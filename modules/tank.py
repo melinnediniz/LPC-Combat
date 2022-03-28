@@ -1,13 +1,17 @@
 import pygame
 from random import randint
 
+
 class Tank(pygame.sprite.Sprite):
     def __init__(self, sprite_sheet, x_pos, y_pos, color):
         super().__init__()
         self.x_pos = x_pos
         self.y_pos = y_pos
         self.sprite_sheet = sprite_sheet
-        self.initial()
+        self.image = self.sprite_sheet[0]
+        self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
+        self.x_speed = 0
+        self.y_speed = 0
         self.color = color
         self.movement = True
         if self.color == 'green':
@@ -18,6 +22,8 @@ class Tank(pygame.sprite.Sprite):
             self.signal = -1
         self.shot_y_speed = 0
         self.previous_direction = 'up'
+        self.already_thrown = False
+        self.sprite_change_limiter = 5
 
     def initial(self):
         self.image = self.sprite_sheet[0]

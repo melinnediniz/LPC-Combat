@@ -1,7 +1,12 @@
 import pygame
 
 pygame.init()
-game_loop = True
+
+Boolean = {
+    "game_loop": True,
+    "can_shot": True,
+    "is_game_over": False
+}
 
 Color = {
     "BLACK": (0, 0, 0),
@@ -26,30 +31,32 @@ Constant = {
     "CLOCK": 60,
     "SCORE_1_POS": (250, 5),
     "SCORE_2_POS": (780, 5),
-    "GAME_TIME": 41
+    "GAME_TIME": 41,
+    "TICK_SHOT_LIMITER": 15
 }
 
+Position = {
+    "GREEN_TANK_X_POS": 90,
+    "GREEN_TANK_Y_POS": 396,
+    "BLUE_TANK_X_POS": 932,
+    "BLUE_TANK_Y_POS": 396,
+    "BLUE_SHOT_X_POS": 872,
+    "BLUE_SHOT_Y_POS": 396,
+    "GREEN_SHOT_X_POS": 150,
+    "GREEN_SHOT_Y_POS": 396
+}
 
-TICK_SHOT_LIMITER = 15
 
 BLUE_TANK_SPRITE_SHEET = []
 for i in range(0, 360, 15):
     BLUE_TANK_SPRITE_SHEET.append(pygame.image.load(f'sprites/blue_tank/{i}.png'))
-BLUE_TANK_X_POS = 932
-BLUE_TANK_Y_POS = 396
 
 GREEN_TANK_SPRITE_SHEET = []
 for i in range(0, 360, 15):
     GREEN_TANK_SPRITE_SHEET.append(pygame.image.load(f'sprites/green_tank/{i}.png'))
-GREEN_TANK_X_POS = 90
-GREEN_TANK_Y_POS = 396
 
 BLUE_SHOT_SPRITE = 'sprites/blue_shot.png'
-BLUE_SHOT_X_POS = 872
-BLUE_SHOT_Y_POS = 396
 GREEN_SHOT_SPRITE = 'sprites/green_shot.png'
-GREEN_SHOT_X_POS = 150
-GREEN_SHOT_Y_POS = 396
 
 # obstacle image file path: obstacle (x, y) positions
 OBSTACLES = {'sprites/right_block.png': (740, 396), 'sprites/left_block.png': (276, 396),
@@ -61,7 +68,3 @@ OBSTACLES = {'sprites/right_block.png': (740, 396), 'sprites/left_block.png': (2
              'sprites/right_goal.png': (856, 396), 'sprites/left_goal.png': (164, 396),
              'sprites/top_wall.png': (510, 73), 'sprites/bottom_wall.png': (510, 723),
              'sprites/right_wall.png': (20, 410), 'sprites/left_wall.png': (1002, 410)}
-
-# time event
-time_count = Constant['GAME_TIME']
-pygame.time.set_timer(pygame.USEREVENT + 1, 1000)
