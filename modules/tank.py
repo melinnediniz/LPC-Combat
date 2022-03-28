@@ -1,14 +1,13 @@
 import pygame
-
+from random import randint
 
 class Tank(pygame.sprite.Sprite):
     def __init__(self, sprite_sheet, x_pos, y_pos, color):
         super().__init__()
+        self.x_pos = x_pos
+        self.y_pos = y_pos
         self.sprite_sheet = sprite_sheet
-        self.image = self.sprite_sheet[0]
-        self.rect = self.image.get_rect(center=(x_pos, y_pos))
-        self.x_speed = 0
-        self.y_speed = 0
+        self.initial()
         self.color = color
         self.movement = True
         if self.color == 'green':
@@ -20,12 +19,29 @@ class Tank(pygame.sprite.Sprite):
         self.shot_y_speed = 0
         self.previous_direction = 'up'
 
+    def initial(self):
+        self.image = self.sprite_sheet[0]
+        self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
+        self.x_speed = 0
+        self.y_speed = 0
+
+    def randomize(self):
+        x_pos = randint(305, 700)
+        y_pos = randint(290, 510)
+        self.rect  = self.image.get_rect(center=(x_pos, y_pos))
+
     def lock(self):
         self.movement = False
 
-    def move_up(self, angle):
-        self.previous_direction = 'up'
+    def unlock(self, is_game_over):
+        if not is_game_over:
+            self.movement = True
+
+    def move_up(self, angle, is_game_over):
+        if self.previous_direction == 'down':
+            self.unlock(is_game_over)
         if self.movement:
+            self.previous_direction = 'up'
             if angle == 0:
                 self.rect.x += 3 * self.signal
                 self.shot_x_speed = 3 * 2 * self.signal
@@ -143,9 +159,11 @@ class Tank(pygame.sprite.Sprite):
                 self.shot_y_speed = -1 * 2 * self.signal
                 self.shot_x_speed = 3 * 2 * self.signal
 
-    def move_down(self, angle):
-        self.previous_direction = 'down'
+    def move_down(self, angle, is_game_over):
+        if self.previous_direction == 'up':
+            self.unlock(is_game_over)
         if self.movement:
+            self.previous_direction = 'down'
             if angle == 0:
                 self.rect.x -= 3 * self.signal
                 self.shot_x_speed = 3 * 2 * self.signal
@@ -263,25 +281,28 @@ class Tank(pygame.sprite.Sprite):
                 self.shot_y_speed = -1 * 2 * self.signal
                 self.shot_x_speed = 3 * 2 * self.signal
 
-    def move_right(self, angle):
+    def move_right(self, angle, is_game_over):
         if self.movement:
             self.image = self.sprite_sheet[angle]
             if self.previous_direction == 'up':
-                self.move_up(angle)
+                self.move_up(angle, is_game_over)
             else:
-                self.move_down(angle)
+                self.move_down(angle, is_game_over)
 
-    def move_left(self, angle):
+    def move_left(self, angle, is_game_over):
         if self.movement:
             self.image = self.sprite_sheet[angle]
             if self.previous_direction == 'up':
-                self.move_up(angle)
+                self.move_up(angle, is_game_over)
             else:
-                self.move_down(angle)
+                self.move_down(angle, is_game_over)
 
     def turn_off_speed(self):
         self.x_speed = 0
         self.y_speed = 0
+
+    def collide_with_obstacle(self):
+        self.lock()
 
     def update(self):
         self.rect.x += self.x_speed
