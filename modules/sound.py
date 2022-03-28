@@ -11,6 +11,10 @@ class Sound:
         self.flip = pygame.mixer.Sound("sound/flip.wav")
         self.kill = pygame.mixer.Sound("sound/kill.ogg")
 
+    def channel(self, num):
+        name = pygame.mixer.Channel(num)
+        return name
+
     def play_move(self):
         self.channel(0).set_volume(0.7), self.channel(1).set_volume(0.7)
         key = pygame.key.get_pressed()
@@ -35,10 +39,6 @@ class Sound:
         if not self.channel(2).get_busy():
             if key[pygame.K_g] or key[pygame.K_l]:
                 self.channel(2).play(self.shot)
-
-    def channel(self, id):
-        name = pygame.mixer.Channel(id)
-        return name
 
     def play_kill(self):
         if self.channel(3).get_busy():

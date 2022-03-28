@@ -1,9 +1,9 @@
-from config import Color, Constant
+from config import Config
 from modules.screen import Screen
 import pygame
 
 pygame.init()
-font = pygame.font.Font(Constant['FONT'], 60)
+font = pygame.font.Font(Config.CONSTANT['FONT'], 60)
 
 
 class Score:
@@ -11,8 +11,8 @@ class Score:
         self.score_1 = 0
         self.score_2 = 0
         self.surf = Screen().surface()
-        self.color_1 = Color['GREEN']
-        self.color_2 = Color['BLUE']
+        self.color_1 = Config.COLOR['GREEN']
+        self.color_2 = Config.COLOR['BLUE']
 
     def display(self, position, score, color):
         if score == 1:
