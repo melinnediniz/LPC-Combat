@@ -1,5 +1,6 @@
 import pygame
 from random import randint
+from modules.shot import Shot
 
 
 class Tank(pygame.sprite.Sprite):
@@ -24,6 +25,7 @@ class Tank(pygame.sprite.Sprite):
         self.previous_direction = 'up'
         self.already_thrown = False
         self.sprite_change_limiter = 5
+        self.shots = []
 
     def initial(self):
         self.image = self.sprite_sheet[0]
@@ -309,6 +311,11 @@ class Tank(pygame.sprite.Sprite):
 
     def collide_with_obstacle(self):
         self.lock()
+
+    def create_new_shot(self, shot_sprite):
+        new_shot = Shot(shot_sprite, self.rect.center, self.shot_x_speed, self.shot_y_speed)
+        self.shots.append(new_shot)
+        return new_shot
 
     def update(self):
         self.rect.x += self.x_speed

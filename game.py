@@ -33,8 +33,6 @@ class Game:
         self.all_sprites.add(self.blue_tank)
         self.all_sprites.add(self.green_tank)
         self.all_sprites.add(self.obstacles)
-        self.green_shots_group = []
-        self.blue_shots_group = []
 
         self.green_shot_limiter = Config.CONSTANT['TICK_SHOT_LIMITER']
         self.blue_shot_limiter = Config.CONSTANT['TICK_SHOT_LIMITER']
@@ -74,16 +72,16 @@ class Game:
                 if self.timer.time_count == 0:
                     Config.BOOLEAN['is_game_over'] = True
                     self.surface.fill(random.choice(Config.list_of_colors))
-                    for gs in self.green_shots_group:
+                    for gs in self.green_tank.shots:
                         self.all_sprites.remove(gs)
-                    for bs in self.blue_shots_group:
+                    for bs in self.blue_tank.shots:
                         self.all_sprites.remove(bs)
                     self.green_tank.lock(), self.blue_tank.lock()
                     Config.BOOLEAN['can_shot'] = False
                 elif self.timer.time_count == -6:
-                    for gs in self.green_shots_group:
+                    for gs in self.green_tank.shots:
                         self.all_sprites.remove(gs)
-                    for bs in self.blue_shots_group:
+                    for bs in self.blue_tank.shots:
                         self.all_sprites.remove(bs)
                     self.surface.fill(random.choice(Config.list_of_colors))
                     self.timer.time_count = 0
@@ -95,9 +93,9 @@ class Game:
                     self.timer.time_count = Config.CONSTANT['GAME_TIME']
                     self.green_tank.initial(), self.blue_tank.initial()
                     self.score.reset()
-                    for gs in self.green_shots_group:
+                    for gs in self.green_tank.shots:
                         self.all_sprites.add(gs)
-                    for bs in self.blue_shots_group:
+                    for bs in self.blue_tank.shots:
                         self.all_sprites.add(bs)
                 elif event.key == pygame.K_ESCAPE:
                     exit()
@@ -148,17 +146,11 @@ class Game:
                 self.blue_tank.sprite_change_limiter = 0
             self.blue_tank.sprite_change_limiter += 1
         if keys[pygame.K_g] and not self.green_tank.already_thrown and Config.BOOLEAN['can_shot']:
-            new_green_shot = Shot(Config.GREEN_SHOT_SPRITE, self.green_tank.rect.center, self.green_tank.shot_x_speed,
-                                  self.green_tank.shot_y_speed)
-            self.all_sprites.add(new_green_shot)
-            self.green_shots_group.append(new_green_shot)
+            self.all_sprites.add(self.green_tank.create_new_shot(Config.GREEN_SHOT_SPRITE))
             self.green_shot_limiter = 0
             self.green_tank.already_thrown = True
         if keys[pygame.K_l] and not self.blue_tank.already_thrown and Config.BOOLEAN['can_shot']:
-            new_blue_shot = Shot(Config.BLUE_SHOT_SPRITE, self.blue_tank.rect.center, self.blue_tank.shot_x_speed,
-                                 self.blue_tank.shot_y_speed)
-            self.all_sprites.add(new_blue_shot)
-            self.blue_shots_group.append(new_blue_shot)
+            self.all_sprites.add(self.blue_tank.create_new_shot(Config.BLUE_SHOT_SPRITE))
             self.blue_shot_limiter = 0
             self.blue_tank.already_thrown = True
 
@@ -166,10 +158,10 @@ class Game:
             self.green_tank.lock()
             self.blue_tank.lock()
 
-        for gs in self.green_shots_group:
+        for gs in self.green_tank.shots:
             if pygame.sprite.collide_mask(gs, self.blue_tank):
                 gs.kill()
-                self.green_shots_group.remove(gs)
+                self.green_tank.shots.remove(gs)
                 self.score.update(1)
                 self.sound.play_kill()
                 self.blue_tank.randomize()
@@ -178,10 +170,10 @@ class Game:
                 if pygame.sprite.collide_mask(gs, o):
                     gs.collision_with_obstacle()
 
-        for bs in self.blue_shots_group:
+        for bs in self.blue_tank.shots:
             if pygame.sprite.collide_mask(bs, self.green_tank):
                 bs.kill()
-                self.blue_shots_group.remove(bs)
+                self.blue_tank.shots.remove(bs)
                 self.score.update(2)
                 self.sound.play_kill()
                 self.green_tank.randomize()
@@ -195,7 +187,7 @@ class Game:
             if pygame.sprite.collide_mask(self.green_tank, o):
                 self.green_tank.collide_with_obstacle()
             if pygame.sprite.collide_mask(self.blue_tank, o):
-                self.blue_tank.collide_with_obstacle()
+                self.blue_tank.collide_with_obstaclej()
 
         self.score.display(Config.POSITION['SCORE_1_POS'], 1, self.score.color_1)
         self.score.display(Config.POSITION['SCORE_2_POS'], 2, self.score.color_2)
